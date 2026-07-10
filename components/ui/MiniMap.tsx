@@ -55,12 +55,12 @@ export function MiniMap() {
             >
               {/* Header */}
               <div className="flex items-center justify-between mb-2">
-                <span className="text-[#FDB813]/70 font-mono text-xs uppercase">
+                <span className="text-[#FDB813]/75 font-mono text-xs uppercase">
                   Orbital Map
                 </span>
                 <button
                   onClick={toggleMiniMap}
-                  className="text-[#FDB813]/50 hover:text-[#FDB813] text-xs"
+                  className="text-[#FDB813]/75 hover:text-[#FDB813] text-xs"
                 >
                   [x]
                 </button>

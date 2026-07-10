@@ -14,12 +14,12 @@ interface ConnectionLinesProps {
 
 // Brighter type colors for connection lines
 const TYPE_COLORS: Record<string, string> = {
-  skill: '#00ffff',
-  project: '#00ff41',
-  philosophy: '#ff44ff',
+  skill: '#48DFE3',
+  project: '#57D9A3',
+  philosophy: '#9D7BFF',
   experience: '#FFD044',
-  secret: '#ff3377',
-  core: '#ffffff',
+  secret: '#FF6B6B',
+  core: '#EAF0FF',
 };
 
 // Build lookup: nodeId -> position key used by useSolarSystem

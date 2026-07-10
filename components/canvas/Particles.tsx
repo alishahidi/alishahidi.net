@@ -116,11 +116,11 @@ export function Stars({ count = 3000 }: { count?: number }) {
 
   return (
     <group>
-      {/* Dense tiny white pin-prick stars */}
+      {/* Dense tiny starlight pin-prick stars */}
       <Points positions={tinyPositions} stride={3} frustumCulled={false}>
         <PointMaterial
           transparent
-          color="#ffffff"
+          color="#EAF0FF"
           size={0.1}
           sizeAttenuation={false}
           opacity={0.6}
@@ -129,11 +129,11 @@ export function Stars({ count = 3000 }: { count?: number }) {
         />
       </Points>
 
-      {/* Medium white stars */}
+      {/* Medium starlight stars */}
       <Points positions={midPositions} stride={3} frustumCulled={false}>
         <PointMaterial
           transparent
-          color="#ffffff"
+          color="#EAF0FF"
           size={0.15}
           sizeAttenuation={false}
           opacity={0.45}
@@ -142,11 +142,11 @@ export function Stars({ count = 3000 }: { count?: number }) {
         />
       </Points>
 
-      {/* Brighter closer white stars */}
+      {/* Brighter closer stars — subtle gold glints */}
       <Points positions={nearPositions} stride={3} frustumCulled={false}>
         <PointMaterial
           transparent
-          color="#ffffff"
+          color="#FDB813"
           size={0.25}
           sizeAttenuation={false}
           opacity={0.75}
@@ -155,11 +155,11 @@ export function Stars({ count = 3000 }: { count?: number }) {
         />
       </Points>
 
-      {/* Very distant faint white stars — deep background */}
+      {/* Very distant faint stars — soft violet deep background */}
       <Points positions={farPositions} stride={3} frustumCulled={false}>
         <PointMaterial
           transparent
-          color="#e8e8ff"
+          color="#C9BFFF"
           size={0.07}
           sizeAttenuation={false}
           opacity={0.35}

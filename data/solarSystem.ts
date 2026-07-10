@@ -91,7 +91,7 @@ export const planets: PlanetConfig[] = [
     name: 'University',
     description: 'Computer Engineering',
     roles: [
-      { title: 'CE Student — Khayyam Univ.', duration: '2021 - 2024' },
+      { title: 'CE Student — Khayyam Univ.', duration: '2022 - 2025' },
       { title: 'CE Student — Azad Univ.', duration: '2025 - Present' },
     ],
     orbitRadius: 12,
@@ -114,7 +114,7 @@ export const planets: PlanetConfig[] = [
     name: 'Freelance',
     description: 'PHP Developer',
     roles: [
-      { title: 'PHP Developer (Freelancer)', duration: 'Feb 2019 - Jan 2022' },
+      { title: 'PHP Developer (Freelancer)', duration: 'Jul 2019 - Feb 2023' },
     ],
     orbitRadius: 20,
     size: 1.5,
@@ -138,7 +138,7 @@ export const planets: PlanetConfig[] = [
     name: 'LaunchingMax',
     description: 'Frontend Focus',
     roles: [
-      { title: 'Software Developer', duration: 'Dec 2021 - Feb 2022' },
+      { title: 'Software Developer', duration: 'Feb 2023 - Jul 2023' },
     ],
     orbitRadius: 27,
     size: 1.1,
@@ -160,7 +160,7 @@ export const planets: PlanetConfig[] = [
     name: 'Neshan Maps',
     description: 'Backend Intern',
     roles: [
-      { title: 'Backend Developer (Intern)', duration: 'Jul 2022 - Oct 2022' },
+      { title: 'Backend Developer (Intern)', duration: 'Aug 2023 - Sep 2023' },
     ],
     orbitRadius: 34,
     size: 1.6,
@@ -184,7 +184,7 @@ export const planets: PlanetConfig[] = [
     name: 'Navashgaran',
     description: 'Enterprise Java',
     roles: [
-      { title: 'Java Software Developer', duration: 'Feb 2023 - Present' },
+      { title: 'Java Software Developer', duration: 'Feb 2024 - Present' },
     ],
     orbitRadius: 48,
     size: 2.2,
@@ -218,13 +218,13 @@ export const asteroidBeltConfig = {
 };
 
 export const projectStations: AsteroidConfig[] = [
-  { nodeId: 'project-apantos', label: 'Apantos Framework', orbitRadius: 38, size: 0.9, color: '#00ff41', angle: 0.5, height: 0.4 },
-  { nodeId: 'project-enterprise-api', label: 'Enterprise APIs', orbitRadius: 40, size: 0.85, color: '#39FF14', angle: 1.5, height: -0.2 },
-  { nodeId: 'project-data-migration', label: 'Data Migration', orbitRadius: 37.5, size: 0.8, color: '#76FF7A', angle: 2.5, height: 0.5 },
-  { nodeId: 'project-neshan-backend', label: 'Neshan Backend', orbitRadius: 41, size: 0.8, color: '#00E676', angle: 3.5, height: -0.4 },
-  { nodeId: 'project-freelance-web', label: 'Freelance Projects', orbitRadius: 39, size: 0.75, color: '#69F0AE', angle: 4.2, height: 0.15 },
-  { nodeId: 'project-launchingmax-app', label: 'LaunchingMax App', orbitRadius: 42, size: 0.7, color: '#B2FF59', angle: 5.0, height: -0.3 },
-  { nodeId: 'project-portfolio', label: 'This Website', orbitRadius: 40.5, size: 1.0, color: '#00FF87', angle: 5.8, height: 0 },
+  { nodeId: 'project-apantos', label: 'Apantos Framework', orbitRadius: 38, size: 0.9, color: '#57D9A3', angle: 0.5, height: 0.4 },
+  { nodeId: 'project-enterprise-api', label: 'Enterprise APIs', orbitRadius: 40, size: 0.85, color: '#55DAAE', angle: 1.5, height: -0.2 },
+  { nodeId: 'project-data-migration', label: 'Data Migration', orbitRadius: 37.5, size: 0.8, color: '#52DBB8', angle: 2.5, height: 0.5 },
+  { nodeId: 'project-neshan-backend', label: 'Neshan Backend', orbitRadius: 41, size: 0.8, color: '#50DCC3', angle: 3.5, height: -0.4 },
+  { nodeId: 'project-freelance-web', label: 'Freelance Projects', orbitRadius: 39, size: 0.75, color: '#4DDDCE', angle: 4.2, height: 0.15 },
+  { nodeId: 'project-launchingmax-app', label: 'LaunchingMax App', orbitRadius: 42, size: 0.7, color: '#4BDED8', angle: 5.0, height: -0.3 },
+  { nodeId: 'project-portfolio', label: 'This Website', orbitRadius: 40.5, size: 1.0, color: '#48DFE3', angle: 5.8, height: 0 },
 ];
 
 // ============================================================================
@@ -232,12 +232,12 @@ export const projectStations: AsteroidConfig[] = [
 // ============================================================================
 
 export const nebulae: NebulaConfig[] = [
-  { nodeId: 'philosophy-backend', label: 'Why Backend?', position: [80, 40, -90], color: '#ff44ff', size: 8, opacity: 0.12 },
-  { nodeId: 'philosophy-clean-code', label: 'Clean Code', position: [-90, -30, -85], color: '#ff66ff', size: 7, opacity: 0.11 },
-  { nodeId: 'philosophy-distributed', label: 'Distributed Beauty', position: [100, -45, -75], color: '#dd44ff', size: 9, opacity: 0.11 },
-  { nodeId: 'philosophy-ai-future', label: 'AI & The Future', position: [-70, 55, -95], color: '#ff44cc', size: 7, opacity: 0.12 },
-  { nodeId: 'philosophy-life-lessons', label: 'Code & Life', position: [10, -65, -100], color: '#ff88ff', size: 8, opacity: 0.10 },
-  { nodeId: 'philosophy-simplicity', label: 'Simplicity', position: [-100, 20, -70], color: '#ee44ff', size: 7, opacity: 0.11 },
+  { nodeId: 'philosophy-backend', label: 'Why Backend?', position: [80, 40, -90], color: '#9D7BFF', size: 8, opacity: 0.12 },
+  { nodeId: 'philosophy-clean-code', label: 'Clean Code', position: [-90, -30, -85], color: '#9D7BFF', size: 7, opacity: 0.11 },
+  { nodeId: 'philosophy-distributed', label: 'Distributed Beauty', position: [100, -45, -75], color: '#9D7BFF', size: 9, opacity: 0.11 },
+  { nodeId: 'philosophy-ai-future', label: 'AI & The Future', position: [-70, 55, -95], color: '#9D7BFF', size: 7, opacity: 0.12 },
+  { nodeId: 'philosophy-life-lessons', label: 'Code & Life', position: [10, -65, -100], color: '#9D7BFF', size: 8, opacity: 0.10 },
+  { nodeId: 'philosophy-simplicity', label: 'Simplicity', position: [-100, 20, -70], color: '#9D7BFF', size: 7, opacity: 0.11 },
 ];
 
 // ============================================================================
@@ -245,10 +245,10 @@ export const nebulae: NebulaConfig[] = [
 // ============================================================================
 
 export const comets: CometConfig[] = [
-  { nodeId: 'secret-doubt', label: 'The Doubt', color: '#ff0055', speed: 0.03, orbitRadius: 65, tilt: 0.8, eccentricity: 0.6, startAngle: 0 },
-  { nodeId: 'secret-failure', label: 'The Failures', color: '#ff0055', speed: 0.025, orbitRadius: 70, tilt: 1.2, eccentricity: 0.7, startAngle: 2.0 },
-  { nodeId: 'secret-imposter', label: 'Imposter', color: '#ff0055', speed: 0.02, orbitRadius: 60, tilt: 0.5, eccentricity: 0.5, startAngle: 4.0 },
-  { nodeId: 'secret-motivation', label: 'Motivation', color: '#ff0055', speed: 0.028, orbitRadius: 75, tilt: 1.0, eccentricity: 0.65, startAngle: 5.5 },
+  { nodeId: 'secret-doubt', label: 'The Doubt', color: '#FF6B6B', speed: 0.03, orbitRadius: 65, tilt: 0.8, eccentricity: 0.6, startAngle: 0 },
+  { nodeId: 'secret-failure', label: 'The Failures', color: '#FF6B6B', speed: 0.025, orbitRadius: 70, tilt: 1.2, eccentricity: 0.7, startAngle: 2.0 },
+  { nodeId: 'secret-imposter', label: 'Imposter', color: '#FF6B6B', speed: 0.02, orbitRadius: 60, tilt: 0.5, eccentricity: 0.5, startAngle: 4.0 },
+  { nodeId: 'secret-motivation', label: 'Motivation', color: '#FF6B6B', speed: 0.028, orbitRadius: 75, tilt: 1.0, eccentricity: 0.65, startAngle: 5.5 },
 ];
 
 // ============================================================================

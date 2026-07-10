@@ -27,7 +27,7 @@ export function AchievementPopup() {
           className="fixed top-2 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-1rem)] sm:w-auto"
         >
           <div
-            className="relative bg-black/90 backdrop-blur-sm border border-[#FDB813]/40 rounded-lg
+            className="relative bg-[#060814]/90 backdrop-blur-sm border border-[#FDB813]/40 rounded-lg
               px-3 py-2 flex items-center gap-2.5 overflow-hidden"
             style={{ boxShadow: '0 0 20px rgba(253,184,19,0.15)' }}
           >
@@ -39,7 +39,7 @@ export function AchievementPopup() {
               <div className="text-[9px] font-mono text-[#FDB813]/70 uppercase tracking-wider">
                 Achievement Unlocked
               </div>
-              <div className="text-white font-mono text-xs sm:text-sm font-bold truncate">
+              <div className="text-[#EAF0FF] font-mono text-xs sm:text-sm font-bold truncate">
                 {recentUnlock.name}
               </div>
             </div>

@@ -31,7 +31,7 @@ export function GlitchOverlay({
         top: Math.random() * 100,
         height: Math.random() * 5 + 1,
         offset: (Math.random() - 0.5) * 20,
-        color: Math.random() > 0.5 ? '#ff0055' : '#00ffff',
+        color: Math.random() > 0.5 ? '#FF6B6B' : '#48DFE3',
       }));
       setGlitchLines(lines);
 
@@ -136,7 +136,7 @@ export function GlitchOverlay({
               repeat: Infinity,
             }}
           >
-            <div className="text-[#ff0055] font-mono text-6xl font-bold opacity-30">
+            <div className="text-[#FF6B6B] font-mono text-6xl font-bold opacity-30">
               ERROR
             </div>
           </motion.div>

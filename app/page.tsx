@@ -1,205 +1,566 @@
-'use client';
+import Link from 'next/link';
+import { HeroSun } from '@/components/home/HeroSun';
+import { resumePdfPaths } from '@/data/resume';
 
-import { useState, useCallback, useEffect, Component, ReactNode, Suspense } from 'react';
-import { useSearchParams } from 'next/navigation';
-import dynamic from 'next/dynamic';
-import { WelcomeScreen } from '@/components/overlays/WelcomeScreen';
-import { AchievementPopup } from '@/components/overlays/AchievementPopup';
-import { GlitchOverlay } from '@/components/overlays/GlitchOverlay';
-import { MatrixRain } from '@/components/shared/MatrixRain';
-import { HUD } from '@/components/ui/HUD';
-import { Terminal } from '@/components/ui/Terminal';
-import { NodeDetail } from '@/components/ui/NodeDetail';
-import { MiniMap } from '@/components/ui/MiniMap';
-import { Tooltip } from '@/components/ui/Tooltip';
-import { Legend } from '@/components/ui/Legend';
-import { useKeyboard, useKonamiCode } from '@/hooks/useKeyboard';
-import { useGraphStore } from '@/stores/graphStore';
+const EMAIL = 'alishahidi1376@gmail.com';
+const GITHUB = 'https://github.com/alishahidi';
 
-// Error boundary for 3D scene
-class SceneErrorBoundary extends Component<
-  { children: ReactNode },
-  { hasError: boolean; error: Error | null }
-> {
-  constructor(props: { children: ReactNode }) {
-    super(props);
-    this.state = { hasError: false, error: null };
-  }
-
-  static getDerivedStateFromError(error: Error) {
-    return { hasError: true, error };
-  }
-
-  render() {
-    if (this.state.hasError) {
-      return (
-        <div className="fixed inset-0 bg-black flex items-center justify-center">
-          <div className="text-red-500 font-mono text-center p-8">
-            <h2 className="text-xl mb-4">Scene Error</h2>
-            <p className="text-sm opacity-70">{this.state.error?.message}</p>
-            <button
-              onClick={() => window.location.reload()}
-              className="mt-4 px-4 py-2 border border-red-500 rounded hover:bg-red-500/20"
-            >
-              Reload
-            </button>
-          </div>
-        </div>
-      );
-    }
-    return this.props.children;
-  }
+function Eyebrow({ children }: { children: React.ReactNode }) {
+  return <p className="eyebrow">{children}</p>;
 }
 
-// Dynamically import Scene to avoid SSR issues with Three.js
-const Scene = dynamic(
-  () => import('@/components/canvas/Scene').then((mod) => mod.Scene),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="fixed inset-0 bg-black flex items-center justify-center">
-        <div className="text-[#00ff41] font-mono text-lg animate-pulse">
-          Loading consciousness...
-        </div>
-      </div>
-    ),
-  }
-);
-
-function HomeContent() {
-  const searchParams = useSearchParams();
-  const nodeParam = searchParams.get('node');
-
-  const [showWelcome, setShowWelcome] = useState(!nodeParam); // Skip welcome if node param exists
-  const [matrixEnabled, setMatrixEnabled] = useState(true);
-  const [glitchActive, setGlitchActive] = useState(false);
-  const [glitchIntensity, setGlitchIntensity] = useState(0);
-
-  const setFocusedNode = useGraphStore((state) => state.setFocusedNode);
-  const getNode = useGraphStore((state) => state.getNode);
-
-  // Keyboard shortcuts
-  useKeyboard({ enabled: !showWelcome });
-
-  // Handle URL node parameter - auto-focus the node
-  useEffect(() => {
-    if (nodeParam && !showWelcome) {
-      const node = getNode(nodeParam);
-      if (node) {
-        // Small delay to ensure scene is ready
-        setTimeout(() => {
-          setFocusedNode(nodeParam);
-        }, 500);
-      }
-    }
-  }, [nodeParam, showWelcome, setFocusedNode, getNode]);
-
-  // Konami code easter egg
-  useKonamiCode(() => {
-    setGlitchActive(true);
-    setGlitchIntensity(1);
-    setTimeout(() => {
-      setGlitchActive(false);
-      setGlitchIntensity(0);
-    }, 2000);
-  });
-
-  // Handle welcome screen completion
-  const handleWelcomeComplete = useCallback(() => {
-    setShowWelcome(false);
-  }, []);
-
-  // Handle glitch trigger from terminal
-  const handleGlitch = useCallback(() => {
-    setGlitchActive(true);
-    setGlitchIntensity(0.5);
-    setTimeout(() => {
-      setGlitchActive(false);
-      setGlitchIntensity(0);
-    }, 1000);
-  }, []);
-
-  // Handle theme change from terminal
-  const handleThemeChange = useCallback((theme: string) => {
-    // Could implement different color themes here
-    console.log('Theme changed to:', theme);
-  }, []);
-
-  // Handle matrix rain toggle
-  const handleMatrixToggle = useCallback(() => {
-    setMatrixEnabled((prev) => !prev);
-  }, []);
-
-  // Handle enter key during welcome
-  useEffect(() => {
-    if (!showWelcome) return;
-
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Enter') {
-        handleWelcomeComplete();
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [showWelcome, handleWelcomeComplete]);
-
+function SectionHeading({
+  index,
+  eyebrow,
+  title,
+  id,
+}: {
+  index: string;
+  eyebrow: string;
+  title: string;
+  id?: string;
+}) {
   return (
-    <main className="relative w-screen h-screen overflow-hidden bg-black">
-      {/* Matrix rain background */}
-      <MatrixRain enabled={matrixEnabled && !showWelcome} opacity={0.05} />
-
-      {/* 3D Scene */}
-      {!showWelcome && (
-        <SceneErrorBoundary>
-          <Scene glitchIntensity={glitchIntensity} />
-        </SceneErrorBoundary>
-      )}
-
-      {/* UI Overlays */}
-      {!showWelcome && (
-        <>
-          <HUD />
-          <NodeDetail />
-          <MiniMap />
-          <Legend />
-          <Tooltip />
-          <Terminal
-            onGlitch={handleGlitch}
-            onThemeChange={handleThemeChange}
-            onMatrixToggle={handleMatrixToggle}
-          />
-        </>
-      )}
-
-      {/* Welcome screen */}
-      {showWelcome && <WelcomeScreen onComplete={handleWelcomeComplete} />}
-
-      {/* Achievement popup */}
-      <AchievementPopup />
-
-      {/* Glitch overlay */}
-      <GlitchOverlay
-        active={glitchActive}
-        onComplete={() => setGlitchActive(false)}
-      />
-    </main>
+    <div id={id} className="mb-12 scroll-mt-28 sm:mb-16">
+      <div className="flex items-center gap-3">
+        <span className="font-mono text-sm text-gold">{index}</span>
+        <span className="h-px w-8 bg-gold/40" />
+        <Eyebrow>{eyebrow}</Eyebrow>
+      </div>
+      <h2 className="font-display mt-4 text-4xl font-bold tracking-tight text-starlight sm:text-5xl">
+        {title}
+      </h2>
+    </div>
   );
 }
 
-// Wrapper with Suspense for useSearchParams
-export default function Home() {
+/* ---------------------------------------------------------- nav */
+
+function Nav() {
+  const links = [
+    { href: '#about', label: 'about' },
+    { href: '#experience', label: 'experience' },
+    { href: '#work', label: 'work' },
+    { href: '#stack', label: 'stack' },
+    { href: '#contact', label: 'contact' },
+  ];
   return (
-    <Suspense
-      fallback={
-        <div className="fixed inset-0 bg-black flex items-center justify-center">
-          <div className="text-[#00ff41] font-mono text-lg animate-pulse">
-            Loading...
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-white/5 bg-void/70 backdrop-blur-xl">
+      <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-8">
+        <Link href="/" className="group flex items-center gap-2.5">
+          <span className="inline-block h-2.5 w-2.5 rounded-full bg-gold shadow-[0_0_12px_2px_rgba(253,184,19,0.6)]" />
+          <span className="font-display text-[15px] font-semibold text-starlight">
+            Ali Shahidi
+          </span>
+        </Link>
+        <div className="flex items-center gap-6 sm:gap-8">
+          <div className="hidden items-center gap-7 md:flex">
+            {links.map((l) => (
+              <a
+                key={l.href}
+                href={l.href}
+                className="link-sweep font-mono text-[13px] text-stardust transition-colors hover:text-starlight"
+              >
+                {l.label}
+              </a>
+            ))}
+          </div>
+          <Link
+            href="/resume"
+            className="rounded-full border border-gold/50 px-4 py-1.5 font-mono text-[13px] text-gold-bright transition-colors hover:bg-gold hover:text-void"
+          >
+            résumé
+          </Link>
+        </div>
+      </nav>
+    </header>
+  );
+}
+
+/* ---------------------------------------------------------- hero */
+
+function Hero() {
+  return (
+    <section className="relative flex min-h-svh items-center justify-center overflow-hidden">
+      <div className="relative mx-auto w-full max-w-6xl px-5 py-28 text-center sm:px-8">
+        {/* the Star — centerpiece above the name */}
+        <div
+          className="reveal mx-auto -mb-6 w-[min(78vw,420px)] sm:-mb-10"
+          style={{ ['--reveal-delay' as string]: '0s' }}
+        >
+          <HeroSun />
+        </div>
+
+        <div
+          className="reveal"
+          style={{ ['--reveal-delay' as string]: '0.06s' }}
+        >
+          <Eyebrow>backend engineer · tehran, ir</Eyebrow>
+        </div>
+
+        <h1
+          className="text-hero reveal mx-auto mt-5 text-starlight"
+          style={{ ['--reveal-delay' as string]: '0.12s' }}
+        >
+          Ali Shahidi
+        </h1>
+
+        <p
+          className="reveal mx-auto mt-7 max-w-2xl text-xl leading-relaxed text-stardust sm:text-2xl"
+          style={{ ['--reveal-delay' as string]: '0.16s' }}
+        >
+          I build backend systems in{' '}
+          <span className="font-semibold text-starlight">Java &amp; Spring Boot</span>{' '}
+          — scalable, reliable services that teams can lean on in production.
+        </p>
+
+        {/* primary portal: enter the universe */}
+        <div
+          className="reveal mt-11 flex flex-col items-center gap-5"
+          style={{ ['--reveal-delay' as string]: '0.24s' }}
+        >
+          <Link
+            href="/explore"
+            className="cta-glow group inline-flex items-center gap-3 rounded-full bg-gold px-9 py-4 font-display text-lg font-semibold text-void transition-transform hover:scale-[1.03]"
+          >
+            <span
+              className="inline-block h-3 w-3 rounded-full bg-void/80"
+              aria-hidden="true"
+            />
+            Enter the Universe
+            <span className="transition-transform group-hover:translate-x-1" aria-hidden="true">
+              →
+            </span>
+          </Link>
+          <p className="font-mono text-[13px] tracking-wide text-deep-grey">
+            launch the interactive solar system
+          </p>
+
+          <div className="mt-2 flex flex-wrap items-center justify-center gap-4">
+            <Link
+              href="/resume"
+              className="rounded-full border border-white/12 px-6 py-2.5 font-mono text-sm text-starlight transition-colors hover:border-plasma hover:text-plasma"
+            >
+              résumé
+            </Link>
+            <a
+              href={GITHUB}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-full border border-white/12 px-6 py-2.5 font-mono text-sm text-starlight transition-colors hover:border-plasma hover:text-plasma"
+            >
+              GitHub ↗
+            </a>
           </div>
         </div>
-      }
-    >
-      <HomeContent />
-    </Suspense>
+
+        <p
+          className="reveal mx-auto mt-12 flex items-center justify-center gap-3 font-mono text-[13px] text-stardust"
+          style={{ ['--reveal-delay' as string]: '0.32s' }}
+        >
+          <span className="status-dot" aria-hidden="true" />
+          Java Software Developer @ Navashgaran Asr Parseh
+        </p>
+      </div>
+
+      {/* scroll cue */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-7 flex justify-center">
+        <span className="font-mono text-[11px] tracking-[0.3em] text-deep-grey">scroll ↓</span>
+      </div>
+    </section>
+  );
+}
+
+/* ---------------------------------------------------------- about */
+
+function About() {
+  return (
+    <section className="border-t border-white/5">
+      <div className="mx-auto max-w-6xl px-5 py-24 sm:px-8 sm:py-32">
+        <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
+          <div>
+            <SectionHeading
+              id="about"
+              index="01"
+              eyebrow="transmission"
+              title="From the center of the system"
+            />
+          </div>
+          <div className="max-w-2xl space-y-6 text-lg leading-relaxed text-stardust sm:text-xl">
+            <p>
+              I&apos;m a backend engineer specializing in{' '}
+              <span className="text-starlight">Java and Spring Boot</span>. My work
+              is server-side systems, software architecture, and scalable, reliable
+              services — with particular attention to data structures and how the
+              parts of a system talk to each other.
+            </p>
+            <p>
+              I think beyond the code itself. Stability, extensibility, and
+              precision of design come first. The goal is always the same: systems
+              that don&apos;t merely work, but that teams can{' '}
+              <span className="text-starlight">depend on with confidence</span>.
+            </p>
+            <div className="flex items-center gap-3 pt-2 font-mono text-sm text-deep-grey">
+              <span className="status-dot" aria-hidden="true" />
+              currently building enterprise Java at Navashgaran Asr Parseh
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------------------------------------------------------- experience */
+
+const TIMELINE = [
+  {
+    marker: 'now',
+    role: 'Java Software Developer',
+    company: 'Navashgaran Asr Parseh',
+    period: 'Feb 2024 — present',
+    desc: 'Enterprise-scale services in Java & Spring Boot: high-traffic REST APIs, layered service-oriented architecture, and driving data migration from legacy systems. Code review, technical decisions, and mentoring — tech lead on parts of the project.',
+    tags: ['Java', 'Spring Boot', 'Oracle', 'Data Migration'],
+    accent: 'gold',
+  },
+  {
+    marker: '',
+    role: 'Backend Developer · Intern',
+    company: 'Neshan Maps',
+    period: 'Aug — Sep 2023',
+    desc: 'Backend services for live product features at one of Iran’s leading map platforms. Hands-on microservices, Redis caching, and Neshan’s specialized backend bootcamp.',
+    tags: ['Microservices', 'Redis', 'REST API'],
+    accent: 'plasma',
+  },
+  {
+    marker: '',
+    role: 'Software Developer · Frontend Focus',
+    company: 'LaunchingMax',
+    period: 'Feb — Jul 2023',
+    desc: 'Organizational web apps with React.js — building UI and integrating it with backend APIs. The role that taught me what API consumers actually need.',
+    tags: ['React.js', 'JavaScript', 'UI/UX'],
+    accent: 'aurora',
+  },
+  {
+    marker: '',
+    role: 'PHP Developer',
+    company: 'Freelance',
+    period: 'Jul 2019 — Feb 2023',
+    desc: 'Web applications and backend systems in PHP & Laravel, owned end to end from requirements to delivery. Built Apantos — a custom PHP framework focused on security and modularity.',
+    tags: ['PHP', 'Laravel', 'MySQL', 'Apantos'],
+    accent: 'nebula',
+  },
+];
+
+const ACCENT_HEX: Record<string, string> = {
+  gold: '#FDB813',
+  plasma: '#48DFE3',
+  aurora: '#57D9A3',
+  nebula: '#9D7BFF',
+};
+
+function Experience() {
+  return (
+    <section className="border-t border-white/5">
+      <div className="mx-auto max-w-6xl px-5 py-24 sm:px-8 sm:py-32">
+        <SectionHeading
+          id="experience"
+          index="02"
+          eyebrow="orbital timeline"
+          title="Where I've orbited"
+        />
+        <div className="max-w-3xl">
+          {TIMELINE.map((c) => (
+            <article key={c.company} className="orbit-rail relative pb-14 ps-9">
+              <span
+                className="node-marker absolute start-0 top-1.5 grid h-[15px] w-[15px] place-items-center rounded-full"
+                style={{
+                  border: `2px solid ${ACCENT_HEX[c.accent]}`,
+                  boxShadow: `0 0 12px 1px ${ACCENT_HEX[c.accent]}66`,
+                  background: '#060814',
+                }}
+                aria-hidden="true"
+              >
+                <span
+                  className="h-1 w-1 rounded-full"
+                  style={{ background: ACCENT_HEX[c.accent] }}
+                />
+              </span>
+              <div className="flex flex-wrap items-baseline gap-x-3">
+                {c.marker && (
+                  <span className="rounded-full bg-gold/15 px-2 py-0.5 font-mono text-[11px] text-gold-bright">
+                    {c.marker}
+                  </span>
+                )}
+                <span className="ms-auto font-mono text-[12px] text-deep-grey">
+                  {c.period}
+                </span>
+              </div>
+              <h3 className="font-display mt-2 text-2xl font-semibold text-starlight">
+                {c.role}
+              </h3>
+              <p className="mt-1 font-mono text-sm text-plasma">{c.company}</p>
+              <p className="mt-3.5 max-w-2xl text-[17px] leading-relaxed text-stardust">
+                {c.desc}
+              </p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {c.tags.map((t) => (
+                  <span
+                    key={t}
+                    className="rounded-full border border-white/10 px-2.5 py-0.5 font-mono text-[11px] text-stardust"
+                  >
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------------------------------------------------------- work */
+
+const PROJECTS = [
+  {
+    name: 'Apantos Framework',
+    desc: 'A custom PHP framework built from scratch — MVC, a middleware pipeline, and security by default, not bolted on. Building it taught me what frameworks actually do.',
+    stack: 'PHP · MySQL',
+    href: GITHUB,
+    external: true,
+  },
+  {
+    name: 'Enterprise REST APIs',
+    desc: 'High-traffic RESTful services for enterprise clients: a versioning strategy, layered architecture, and backward compatibility treated as a design constraint.',
+    stack: 'Java · Spring Boot · Oracle',
+  },
+  {
+    name: 'Data Migration Platform',
+    desc: 'Moving decades of legacy data to modern systems with zero loss: an incremental strategy, validation pipelines, and a rollback plan at every stage.',
+    stack: 'Java · Spring Boot · Oracle · MySQL',
+  },
+];
+
+function Work() {
+  return (
+    <section className="border-t border-white/5">
+      <div className="mx-auto max-w-6xl px-5 py-24 sm:px-8 sm:py-32">
+        <SectionHeading id="work" index="03" eyebrow="asteroid field" title="Selected work" />
+
+        {/* featured: the explorer */}
+        <Link
+          href="/explore"
+          className="group relative mb-6 block overflow-hidden rounded-2xl border border-gold/25 bg-orbit/60 p-8 transition-colors hover:border-gold/60 sm:p-10"
+        >
+          <div className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full opacity-60 blur-2xl transition-opacity group-hover:opacity-90"
+            style={{ background: 'radial-gradient(circle, rgba(253,184,19,0.35), transparent 70%)' }}
+          />
+          <div className="relative flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+            <div className="max-w-xl">
+              <p className="eyebrow">the centerpiece</p>
+              <h3 className="font-display mt-3 text-3xl font-bold text-starlight">
+                The Solar System
+              </h3>
+              <p className="mt-3 text-[17px] leading-relaxed text-stardust">
+                My whole career as an explorable universe — companies are planets,
+                skills are their moons, projects drift in the asteroid belt. A
+                terminal, achievements, and hidden depths for the curious.
+              </p>
+              <p className="mt-4 font-mono text-[13px] text-deep-grey">
+                Three.js · Next.js · TypeScript
+              </p>
+            </div>
+            <span className="inline-flex shrink-0 items-center gap-2 rounded-full bg-gold px-6 py-3 font-display font-semibold text-void transition-transform group-hover:scale-105">
+              Enter <span aria-hidden="true">→</span>
+            </span>
+          </div>
+        </Link>
+
+        <div className="grid gap-5 sm:grid-cols-3">
+          {PROJECTS.map((p) => {
+            const inner = (
+              <>
+                <div className="flex items-start justify-between gap-3">
+                  <h3 className="font-display text-lg font-semibold text-starlight transition-colors group-hover:text-plasma">
+                    {p.name}
+                  </h3>
+                  {p.href && (
+                    <span className="font-mono text-sm text-deep-grey transition-colors group-hover:text-plasma" aria-hidden="true">
+                      ↗
+                    </span>
+                  )}
+                </div>
+                <p className="mt-3 text-[15px] leading-relaxed text-stardust">{p.desc}</p>
+                <p className="mt-5 font-mono text-[12px] text-deep-grey">{p.stack}</p>
+              </>
+            );
+            const cls =
+              'group block rounded-xl border border-white/10 bg-orbit/40 p-6 transition-colors hover:border-plasma/50';
+            return p.href ? (
+              <a
+                key={p.name}
+                href={p.href}
+                className={cls}
+                {...(p.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+              >
+                {inner}
+              </a>
+            ) : (
+              <div key={p.name} className={cls}>
+                {inner}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------------------------------------------------------- stack */
+
+const STACK: Array<[string, string[]]> = [
+  ['languages & frameworks', ['Java', 'Spring Boot', 'Hibernate', 'PHP · Laravel', 'JavaScript · React', 'Python (tooling)']],
+  ['data & messaging', ['Oracle', 'MySQL', 'Redis', 'RabbitMQ', 'Data Migration']],
+  ['infrastructure', ['Linux', 'Docker', 'Git', 'CI/CD']],
+  ['practices', ['System Design', 'RESTful APIs', 'Multithreading', 'Unit Testing', 'Code Review']],
+];
+
+function Stack() {
+  return (
+    <section className="border-t border-white/5">
+      <div className="mx-auto max-w-6xl px-5 py-24 sm:px-8 sm:py-32">
+        <SectionHeading id="stack" index="04" eyebrow="tool constellation" title="Tools I trust" />
+        <div className="grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
+          {STACK.map(([group, items]) => (
+            <div key={group}>
+              <h3 className="font-mono text-[13px] text-gold-bright">~/{group}</h3>
+              <ul className="mt-5 space-y-3 border-s border-white/10 ps-4">
+                {items.map((item) => (
+                  <li key={item} className="text-[16px] text-starlight/90">
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------------------------------------------------------- resume band */
+
+function ResumeBand() {
+  return (
+    <section className="border-t border-white/5">
+      <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8">
+        <div className="flex flex-col items-start gap-8 rounded-2xl border border-white/10 bg-orbit/50 p-8 sm:p-10 lg:flex-row lg:items-center lg:justify-between lg:gap-12">
+          <div className="max-w-xl">
+            <p className="eyebrow">mission dossier</p>
+            <h2 className="font-display mt-3 text-3xl font-bold text-starlight">
+              The full résumé
+            </h2>
+            <p className="mt-3 leading-relaxed text-stardust">
+              Available in English and Persian — read it in the browser or take the
+              PDF.
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-3.5">
+            <Link
+              href="/resume"
+              className="rounded-full bg-gold px-6 py-3 font-display font-semibold text-void transition hover:brightness-110"
+            >
+              Open résumé
+            </Link>
+            <a
+              href={resumePdfPaths.en}
+              download
+              className="rounded-full border border-white/12 px-5 py-3 font-mono text-sm text-starlight transition-colors hover:border-gold hover:text-gold-bright"
+            >
+              PDF · EN
+            </a>
+            <a
+              href={resumePdfPaths.fa}
+              download
+              className="rounded-full border border-white/12 px-5 py-3 font-mono text-sm text-starlight transition-colors hover:border-gold hover:text-gold-bright"
+            >
+              PDF · فارسی
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------------------------------------------------------- contact + footer */
+
+function Contact() {
+  return (
+    <section className="border-t border-white/5">
+      <div className="mx-auto max-w-6xl px-5 py-24 sm:px-8 sm:py-32">
+        <SectionHeading id="contact" index="05" eyebrow="open a channel" title="Let's build something reliable" />
+        <a
+          href={`mailto:${EMAIL}`}
+          className="font-display inline-block break-all text-3xl font-bold tracking-tight text-starlight transition-colors hover:text-gold-bright sm:text-5xl"
+        >
+          {EMAIL}
+        </a>
+        <div className="mt-9 flex flex-wrap gap-x-8 gap-y-3 font-mono text-sm">
+          <a href={GITHUB} target="_blank" rel="noopener noreferrer" className="link-sweep text-stardust transition-colors hover:text-starlight">
+            github.com/alishahidi ↗
+          </a>
+          <a href="tel:+989354162611" className="link-sweep text-stardust transition-colors hover:text-starlight">
+            +98 935 416 2611
+          </a>
+          <span className="text-deep-grey">tehran, iran</span>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="border-t border-white/5">
+      <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-4 px-5 py-9 sm:flex-row sm:items-center sm:px-8">
+        <p className="font-mono text-[12px] text-deep-grey">
+          © {new Date().getFullYear()} Ali Shahidi — built with Next.js, hosted on
+          GitHub Pages
+        </p>
+        <Link
+          href="/explore"
+          className="group inline-flex items-center gap-2 font-mono text-[13px] text-gold-bright transition-colors hover:text-gold"
+        >
+          <span className="inline-block h-2 w-2 rounded-full bg-gold shadow-[0_0_10px_2px_rgba(253,184,19,0.6)]" />
+          re-enter the universe
+          <span className="transition-transform group-hover:translate-x-1" aria-hidden="true">→</span>
+        </Link>
+      </div>
+    </footer>
+  );
+}
+
+/* ---------------------------------------------------------- page */
+
+export default function Home() {
+  return (
+    <>
+      <Nav />
+      <main>
+        <Hero />
+        <About />
+        <Experience />
+        <Work />
+        <Stack />
+        <ResumeBand />
+        <Contact />
+      </main>
+      <Footer />
+    </>
   );
 }

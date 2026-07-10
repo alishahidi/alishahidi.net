@@ -17,10 +17,10 @@ function SceneContent() {
       <ambientLight intensity={0.25} />
 
       {/* Fog — fade distant objects gracefully, pushed back so stars stay visible */}
-      <fog attach="fog" args={['#000005', 200, 500]} />
+      <fog attach="fog" args={['#060814', 220, 520]} />
 
       {/* Background elements */}
-      <Stars count={3500} />
+      <Stars count={4200} />
       <Particles count={80} spread={50} />
 
       {/* Solar System */}
@@ -36,7 +36,7 @@ export function Scene({ glitchIntensity = 0 }: SceneProps) {
   const [isLoaded, setIsLoaded] = useState(false);
 
   return (
-    <div className="fixed inset-0 bg-black">
+    <div className="fixed inset-0 bg-[#060814]">
       <Canvas
         camera={{
           position: [0, 40, 90],
@@ -49,7 +49,7 @@ export function Scene({ glitchIntensity = 0 }: SceneProps) {
         onCreated={() => setIsLoaded(true)}
         flat
       >
-        <color attach="background" args={['#000005']} />
+        <color attach="background" args={['#060814']} />
 
         <Suspense fallback={null}>
           <SceneContent />
@@ -58,7 +58,7 @@ export function Scene({ glitchIntensity = 0 }: SceneProps) {
 
       {/* Loading indicator */}
       {!isLoaded && (
-        <div className="absolute inset-0 flex items-center justify-center bg-black">
+        <div className="absolute inset-0 flex items-center justify-center bg-[#060814]">
           <div className="text-[#FDB813] font-mono text-lg animate-pulse">
             Initializing solar system...
           </div>

@@ -43,7 +43,7 @@ export async function generateMetadata({
       title,
       description,
       type: 'website',
-      url: `https://alishahidi.net/node/${node.id}`,
+      url: `https://alishahidi.github.io/node/${node.id}`,
       siteName: 'Ali Shahidi - Backend Developer',
       images: [
         {
@@ -61,7 +61,7 @@ export async function generateMetadata({
       images: ['/og-image.png'],
     },
     alternates: {
-      canonical: `https://alishahidi.net/node/${node.id}`,
+      canonical: `https://alishahidi.github.io/node/${node.id}`,
     },
   };
 }
@@ -77,16 +77,16 @@ export default async function NodePage({
   return (
     <html>
       <head>
-        <meta httpEquiv="refresh" content={`0;url=/?node=${id}`} />
+        <meta httpEquiv="refresh" content={`0;url=/explore?node=${id}`} />
       </head>
       <body>
         <script
           dangerouslySetInnerHTML={{
-            __html: `window.location.replace("/?node=${id}");`,
+            __html: `window.location.replace("/explore?node=${id}");`,
           }}
         />
         <p>
-          Redirecting to <a href={`/?node=${id}`}>portfolio</a>...
+          Redirecting to <a href={`/explore?node=${id}`}>portfolio</a>...
         </p>
       </body>
     </html>

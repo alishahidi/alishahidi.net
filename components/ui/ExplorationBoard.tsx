@@ -10,10 +10,10 @@ type Tab = 'overview' | 'achievements' | 'stats';
 
 const CATEGORY_COLORS = {
   planets: '#FDB813',
-  skills: '#00ffff',
-  projects: '#00ff41',
-  philosophy: '#ff00ff',
-  secrets: '#ff0055',
+  skills: '#48DFE3',
+  projects: '#57D9A3',
+  philosophy: '#9D7BFF',
+  secrets: '#FF6B6B',
 };
 
 const CATEGORY_TOTALS = {

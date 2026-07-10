@@ -44,11 +44,11 @@ export function Tooltip() {
                 {node.type}
               </span>
             </div>
-            <p className="text-gray-400 text-xs font-mono">
+            <p className="text-[#EAF0FF] text-xs font-mono">
               {node.description}
             </p>
             {node.locked && (
-              <p className="text-[#ff0055] text-xs font-mono mt-1">
+              <p className="text-[#FF6B6B] text-xs font-mono mt-1">
                 [LOCKED - Keep exploring]
               </p>
             )}

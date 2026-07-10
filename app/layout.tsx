@@ -1,20 +1,39 @@
 import type { Metadata, Viewport } from 'next';
-import { Geist_Mono } from 'next/font/google';
+import { Space_Grotesk, Manrope, JetBrains_Mono, Vazirmatn } from 'next/font/google';
+import { Starfield } from '@/components/shared/Starfield';
 import './globals.css';
 
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
+const spaceGrotesk = Space_Grotesk({
+  variable: '--font-display',
   subsets: ['latin'],
+  weight: ['500', '600', '700'],
+});
+
+const manrope = Manrope({
+  variable: '--font-body',
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  variable: '--font-mono',
+  subsets: ['latin'],
+  weight: ['400', '500', '600'],
+});
+
+const vazirmatn = Vazirmatn({
+  variable: '--font-vazirmatn',
+  subsets: ['arabic', 'latin'],
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://alishahidi.net'),
+  metadataBase: new URL('https://alishahidi.github.io'),
   title: {
-    default: 'Ali Shahidi | Backend Developer',
-    template: '%s | Ali Shahidi',
+    default: 'Ali Shahidi — Backend Developer',
+    template: '%s — Ali Shahidi',
   },
   description:
-    'Ali Shahidi - Backend Developer specializing in Java, Spring Boot, PHP, MySQL, Redis, Docker, and Linux. Explore my interactive 3D portfolio.',
+    'Ali Shahidi — Backend developer specializing in Java, Spring Boot, and enterprise systems. Designing scalable, reliable services and leading data migrations in production.',
   keywords: [
     'Ali Shahidi',
     'Backend Developer',
@@ -23,6 +42,7 @@ export const metadata: Metadata = {
     'PHP Developer',
     'Laravel',
     'MySQL',
+    'Oracle',
     'Redis',
     'Docker',
     'Linux',
@@ -32,34 +52,34 @@ export const metadata: Metadata = {
     'RabbitMQ',
     'Hibernate',
     'Backend Architecture',
+    'Data Migration',
   ],
-  authors: [{ name: 'Ali Shahidi', url: 'https://alishahidi.net' }],
+  authors: [{ name: 'Ali Shahidi', url: 'https://alishahidi.github.io' }],
   creator: 'Ali Shahidi',
   publisher: 'Ali Shahidi',
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://alishahidi.net',
-    title: 'Ali Shahidi | Backend Developer',
+    url: 'https://alishahidi.github.io',
+    title: 'Ali Shahidi — Backend Developer',
     description:
-      'Backend Developer specializing in Java, Spring Boot, and enterprise systems. Explore my interactive 3D solar system portfolio.',
-    siteName: 'Ali Shahidi Portfolio',
+      'Backend developer specializing in Java, Spring Boot, and enterprise systems. Services that organizations can lean on.',
+    siteName: 'Ali Shahidi',
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Ali Shahidi - Backend Developer Portfolio',
+        alt: 'Ali Shahidi — Backend Developer',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Ali Shahidi | Backend Developer',
+    title: 'Ali Shahidi — Backend Developer',
     description:
-      'Backend Developer specializing in Java, Spring Boot, and enterprise systems.',
+      'Backend developer specializing in Java, Spring Boot, and enterprise systems.',
     images: ['/og-image.png'],
-    creator: '@alishahidi',
   },
   robots: {
     index: true,
@@ -72,19 +92,15 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  verification: {
-    google: 'your-google-verification-code',
-  },
   alternates: {
-    canonical: 'https://alishahidi.net',
+    canonical: 'https://alishahidi.github.io',
   },
 };
 
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 1,
-  themeColor: '#000000',
+  themeColor: '#060814',
 };
 
 // JSON-LD Structured Data
@@ -92,9 +108,10 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
   name: 'Ali Shahidi',
-  url: 'https://alishahidi.net',
+  url: 'https://alishahidi.github.io',
   jobTitle: 'Backend Developer',
-  description: 'Backend Developer specializing in Java, Spring Boot, and enterprise systems.',
+  description:
+    'Backend developer specializing in Java, Spring Boot, and enterprise systems.',
   knowsAbout: [
     'Java',
     'Spring Boot',
@@ -102,12 +119,14 @@ const jsonLd = {
     'PHP',
     'Laravel',
     'MySQL',
+    'Oracle',
     'Redis',
     'Docker',
     'Linux',
     'RabbitMQ',
     'REST API Design',
     'Backend Architecture',
+    'Data Migration',
   ],
   sameAs: [
     'https://github.com/alishahidi',
@@ -128,7 +147,10 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={`${geistMono.variable} antialiased bg-black text-[#00ff41]`}>
+      <body
+        className={`${spaceGrotesk.variable} ${manrope.variable} ${jetbrainsMono.variable} ${vazirmatn.variable} antialiased`}
+      >
+        <Starfield />
         {children}
       </body>
     </html>

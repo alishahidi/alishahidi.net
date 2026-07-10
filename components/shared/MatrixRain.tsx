@@ -19,13 +19,13 @@ export function MatrixRain({ enabled = true, opacity = 0.1 }: MatrixRainProps) {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Set canvas size
-    const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
-    resize();
-    window.addEventListener('resize', resize);
+    // Respect reduced-motion preference: render nothing / no animation
+    if (
+      typeof window !== 'undefined' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    ) {
+      return;
+    }
 
     // Characters to use
     const chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -33,10 +33,20 @@ export function MatrixRain({ enabled = true, opacity = 0.1 }: MatrixRainProps) {
 
     // Column settings
     const fontSize = 14;
-    const columns = Math.floor(canvas.width / fontSize);
+    let drops: number[] = [];
 
-    // Track position of each column
-    const drops: number[] = Array(columns).fill(1);
+    // Size the canvas and (re)build the columns to fill the current width
+    const resize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      const columns = Math.floor(canvas.width / fontSize);
+      const next = Array(columns).fill(1);
+      // preserve existing drop positions where possible
+      for (let i = 0; i < Math.min(drops.length, columns); i++) next[i] = drops[i];
+      drops = next;
+    };
+    resize();
+    window.addEventListener('resize', resize);
 
     // Animation
     const draw = () => {
@@ -44,8 +54,8 @@ export function MatrixRain({ enabled = true, opacity = 0.1 }: MatrixRainProps) {
       ctx.fillStyle = `rgba(0, 0, 0, 0.05)`;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Green text
-      ctx.fillStyle = '#00ff41';
+      // Plasma cyan stardust (distant, faint — overall opacity from canvas wrapper)
+      ctx.fillStyle = '#48dfe3';
       ctx.font = `${fontSize}px monospace`;
 
       for (let i = 0; i < drops.length; i++) {

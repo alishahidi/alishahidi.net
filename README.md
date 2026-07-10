@@ -1,97 +1,51 @@
-# alishahidi.net
+# alishahidi.github.io
 
-Interactive 3D solar system portfolio — each planet is a company I've worked at, moons are the technologies I used there, and asteroids are the projects I've built.
+Personal site of **Ali Shahidi** — Backend Developer (Java & Spring Boot).
 
-**Live:** [alishahidi.net](https://alishahidi.net)
+Live at [alishahidi.github.io](https://alishahidi.github.io).
 
-## What is this?
+## Pages
 
-A portfolio website disguised as a solar system. Instead of a flat list of jobs and skills, you explore an orbital visualization where everything is connected — companies orbit a central sun, skills orbit those companies as moons, and projects float in an asteroid belt between them.
+| Route | What it is |
+| --- | --- |
+| `/` | Portfolio — hero with a live service-topology diagram, experience as a commit log, projects, stack, contact |
+| `/resume` | Résumé in HTML, switchable between **English** and **فارسی** (RTL), with PDF download and print support |
+| `/explore` | The interactive 3D solar-system portfolio (Three.js) — terminal, achievements, easter eggs |
 
-Click any object to learn more. Open the terminal (`~` key) to navigate like a developer. Discover hidden comets and nebulae for the full story.
+## Stack
 
-## Features
+Next.js (static export) · React · Tailwind CSS v4 · Three.js / react-three-fiber (explorer) · Zustand
 
-| Feature | Description |
-|---|---|
-| 3D Solar System | Planets (companies), moons (skills), asteroids (projects) |
-| Interactive Camera | Click any object to fly to it, scroll to zoom |
-| Terminal | Built-in CLI with commands like `ls`, `cd`, `cat`, `help` |
-| Node Detail Panel | Markdown content for every node |
-| Connection Lines | Visualize relationships between skills, projects, and companies |
-| Achievement System | Unlock achievements by exploring |
-| Nebulae | Philosophy nodes as distant glowing clouds |
-| Comets | Hidden "secret" nodes that sweep through the system |
-| Mini-map | Radar-style overview of the whole system |
-| Welcome Screen | Animated intro with typewriter effect |
-| SEO | Full metadata, JSON-LD, sitemap, robots.txt |
-| Responsive | Works on desktop and mobile |
+Fonts: Archivo (display/body) · IBM Plex Mono (utility) · Vazirmatn (Persian).
 
-## Tech Stack
-
-| Layer | Technology |
-|---|---|
-| Framework | Next.js 16, React 19 |
-| 3D Engine | Three.js via React Three Fiber + Drei |
-| State | Zustand |
-| Styling | Tailwind CSS 4 |
-| Animation | Framer Motion |
-| Language | TypeScript |
-| Font | Geist Mono |
-
-## Project Structure
-
-```
-├── app/
-│   ├── layout.tsx          # Root layout, metadata, JSON-LD
-│   ├── page.tsx            # Main page (loads solar system)
-│   ├── globals.css         # Global styles
-│   ├── node/[id]/page.tsx  # Static pages per node (SEO)
-│   ├── sitemap.ts          # Dynamic sitemap
-│   └── robots.ts           # Robots config
-├── components/
-│   ├── canvas/             # 3D components (Scene, Sun, Planet, Moon, etc.)
-│   ├── ui/                 # 2D overlays (HUD, Terminal, NodeDetail, etc.)
-│   └── overlays/           # Welcome screen, legends
-├── data/
-│   ├── solarSystem.ts      # Orbital config (planets, moons, asteroids, comets)
-│   ├── content/            # JSON content (experience, skills, projects, etc.)
-│   └── nodes/              # Node loaders
-├── stores/                 # Zustand stores
-├── hooks/                  # Custom hooks (useSolarSystem, useCamera, etc.)
-├── lib/                    # Utilities
-└── types/                  # TypeScript types
-```
-
-## Getting Started
+## Development
 
 ```bash
-# Clone
-git clone https://github.com/alishahidi/alishahidinet.git
-cd alishahidinet
-
-# Install
 npm install
-
-# Dev
-npm run dev
-
-# Build
-npm run build
+npm run dev     # local dev server
+npm run build   # static export to out/
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+## Regenerating the résumé PDFs
 
-## Customization
+The downloadable PDFs live in `public/resume/` and are generated from the
+print routes with headless Chromium:
 
-To use this as your own portfolio:
+```bash
+npm run build
+python3 -m http.server 8931 -d out &
+chromium --headless=new --no-pdf-header-footer \
+  --print-to-pdf=public/resume/Ali-Shahidi-Resume-EN.pdf \
+  http://localhost:8931/resume/print/en/
+chromium --headless=new --no-pdf-header-footer \
+  --print-to-pdf=public/resume/Ali-Shahidi-Resume-FA.pdf \
+  http://localhost:8931/resume/print/fa/
+npm run build   # rebuild so out/ includes the fresh PDFs
+```
 
-1. **Companies/Jobs:** Edit `data/solarSystem.ts` — each planet is a company, with `roles[]` for positions held there and `moons[]` for skills used
-2. **Content:** Edit JSON files in `data/content/` — experience, skills, projects, philosophy, secrets
-3. **Connections:** Edit `data/content/connections.json` to define relationships between nodes
-4. **Metadata:** Update `app/layout.tsx` with your name, description, and social links
-5. **Theme:** Colors are defined in `data/solarSystem.ts` and `app/globals.css`
+Résumé content is defined once, bilingually, in `data/resume.ts`.
 
-## License
+## Deployment
 
-MIT
+Pushing to `main` triggers `.github/workflows/deploy.yml`, which builds the
+static export and publishes it to GitHub Pages.

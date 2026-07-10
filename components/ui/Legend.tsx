@@ -26,19 +26,19 @@ const legendItems: LegendItem[] = [
   {
     type: 'Station',
     shape: 'Cube',
-    color: '#00ff41',
+    color: '#57D9A3',
     description: 'Projects in the asteroid belt',
   },
   {
     type: 'Nebula',
     shape: 'Cloud',
-    color: '#ff44ff',
+    color: '#9D7BFF',
     description: 'Philosophy and ideas',
   },
   {
     type: 'Comet',
     shape: 'Trail',
-    color: '#ff3377',
+    color: '#FF6B6B',
     description: 'Hidden secrets to discover',
   },
 ];
@@ -101,11 +101,11 @@ export function Legend() {
                         >
                           {item.type}
                         </span>
-                        <span className="text-gray-600 text-[10px] font-mono">
+                        <span className="text-[#566089] text-[10px] font-mono">
                           ({item.shape})
                         </span>
                       </div>
-                      <p className="text-gray-400 text-[11px] font-mono">
+                      <p className="text-[#9AA5CC] text-[11px] font-mono">
                         {item.description}
                       </p>
                     </div>
@@ -118,7 +118,7 @@ export function Legend() {
                 <h4 className="text-[#FDB813]/70 font-mono text-[10px] uppercase mb-2">
                   Controls
                 </h4>
-                <div className="grid grid-cols-2 gap-x-4 gap-y-1.5 text-[11px] font-mono text-gray-400">
+                <div className="grid grid-cols-2 gap-x-4 gap-y-1.5 text-[11px] font-mono text-[#9AA5CC]">
                   <div><span className="text-[#FDB813]">Click</span> Select body</div>
                   <div><span className="text-[#FDB813]">Drag</span> Orbit view</div>
                   <div><span className="text-[#FDB813]">Scroll</span> Zoom in/out</div>

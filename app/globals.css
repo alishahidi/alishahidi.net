@@ -1,21 +1,51 @@
 @import "tailwindcss";
 
+/* ============================================================
+   Cosmos design system — "one Star, one sky"
+   The whole site orbits a single gold Sun on a deep void.
+   Home and /explore share this exact palette, type, and motion.
+   ============================================================ */
 :root {
-  --color-matrix-green: #00ff41;
-  --color-matrix-dark-green: #003300;
-  --color-cyan: #00ffff;
-  --color-magenta: #ff00ff;
-  --color-red: #ff0055;
-  --color-yellow: #ffff00;
-  --color-background: #000000;
-  --color-foreground: #00ff41;
+  --color-void: #060814;
+  --color-void-deep: #03040a;
+  --color-orbit: #0e1428;
+  --color-orbit-raised: #182142;
+  --color-starlight: #eaf0ff;
+  --color-stardust: #9aa5cc;
+  --color-deep-grey: #7d88b8;
+  --color-gold: #fdb813;
+  --color-gold-bright: #ffc24b;
+  --color-plasma: #48dfe3;
+  --color-nebula: #9d7bff;
+  --color-aurora: #57d9a3;
+
+  /* legacy aliases still referenced by the 3D explorer */
+  --color-matrix-green: #48dfe3;
+  --color-cyan: #48dfe3;
+  --color-magenta: #9d7bff;
+  --color-red: #ff6b6b;
+  --color-yellow: #fdb813;
 }
 
 @theme inline {
-  --color-background: var(--color-background);
-  --color-foreground: var(--color-foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-void: var(--color-void);
+  --color-void-deep: var(--color-void-deep);
+  --color-orbit: var(--color-orbit);
+  --color-orbit-raised: var(--color-orbit-raised);
+  --color-starlight: var(--color-starlight);
+  --color-stardust: var(--color-stardust);
+  --color-deep-grey: var(--color-deep-grey);
+  --color-gold: var(--color-gold);
+  --color-gold-bright: var(--color-gold-bright);
+  --color-plasma: var(--color-plasma);
+  --color-nebula: var(--color-nebula);
+  --color-aurora: var(--color-aurora);
+
+  --font-display: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-mono), ui-monospace, monospace;
+  --font-fa: var(--font-vazirmatn), var(--font-body), sans-serif;
 }
 
 * {
@@ -27,103 +57,280 @@ html {
 }
 
 body {
-  background: var(--color-background);
-  color: var(--color-foreground);
-  font-family: var(--font-mono), monospace;
-  overflow: hidden;
+  background: var(--color-void);
+  color: var(--color-starlight);
+  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  font-size: 19px;
+  line-height: 1.7;
   margin: 0;
   padding: 0;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Custom scrollbar */
+/* ---- scrollbars ---- */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 9px;
+  height: 9px;
 }
-
 ::-webkit-scrollbar-track {
-  background: #0a0a0a;
+  background: var(--color-void-deep);
 }
-
 ::-webkit-scrollbar-thumb {
-  background: #00ff4133;
-  border-radius: 3px;
+  background: #26305a;
+  border-radius: 5px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
-  background: #00ff4166;
+  background: var(--color-deep-grey);
 }
-
-/* Firefox scrollbar */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #00ff4133 #0a0a0a;
+  scrollbar-color: #26305a var(--color-void-deep);
 }
-
-/* Thin scrollbar utility */
 .scrollbar-thin::-webkit-scrollbar {
   width: 4px;
 }
-
 .scrollbar-thin::-webkit-scrollbar-thumb {
-  background: #ffffff20;
+  background: #ffffff22;
   border-radius: 2px;
 }
 
-.scrollbar-thin::-webkit-scrollbar-thumb:hover {
-  background: #ffffff40;
-}
-
-/* Selection */
 ::selection {
-  background: #00ff4133;
-  color: #00ff41;
+  background: var(--color-gold);
+  color: var(--color-void);
 }
 
-/* Focus outline */
 :focus {
   outline: none;
 }
-
 :focus-visible {
-  outline: 2px solid #00ff41;
+  outline: 2px solid var(--color-gold);
   outline-offset: 2px;
+  border-radius: 2px;
 }
 
-/* Links */
+/* ============================================================
+   Type helpers
+   ============================================================ */
+.font-display {
+  font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+}
+
+.text-hero {
+  font-family: var(--font-display), sans-serif;
+  font-weight: 700;
+  font-size: clamp(3.25rem, 7vw, 5.75rem);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+}
+
+.eyebrow {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-gold-bright);
+}
+
+/* ============================================================
+   Shared motion language (home + explore)
+   ============================================================ */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    animation: revealUp 0.7s cubic-bezier(0.2, 0.6, 0.2, 1) forwards;
+    animation-delay: var(--reveal-delay, 0s);
+  }
+  .orbit-spin {
+    animation: orbitSpin var(--orbit-dur, 48s) linear infinite;
+    transform-origin: center;
+  }
+  .orbit-spin-rev {
+    animation: orbitSpin var(--orbit-dur, 60s) linear infinite reverse;
+    transform-origin: center;
+  }
+  .sun-breathe {
+    animation: sunBreathe 4s ease-in-out infinite;
+  }
+  .pulse-dot {
+    animation: pulseTravel var(--pulse-duration, 3.2s) linear infinite;
+    animation-delay: var(--pulse-delay, 0s);
+  }
+}
+
+@keyframes revealUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes orbitSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes sunBreathe {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.95;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+}
+
+@keyframes pulseTravel {
+  0% { offset-distance: 0%; opacity: 0; }
+  8% { opacity: 1; }
+  88% { opacity: 1; }
+  100% { offset-distance: 100%; opacity: 0; }
+}
+
+/* status dot (live/aurora) */
+.status-dot {
+  position: relative;
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: var(--color-aurora);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .status-dot::after {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 9999px;
+    border: 1px solid var(--color-aurora);
+    opacity: 0;
+    animation: statusPing 2.6s ease-out infinite;
+  }
+}
+@keyframes statusPing {
+  0% { transform: scale(0.4); opacity: 0.8; }
+  70%, 100% { transform: scale(1.5); opacity: 0; }
+}
+
+/* gold CTA glow pulse */
+@media (prefers-reduced-motion: no-preference) {
+  .cta-glow {
+    animation: ctaGlow 2.8s ease-in-out infinite;
+  }
+}
+@keyframes ctaGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(253, 184, 19, 0.0), 0 8px 30px -8px rgba(253, 184, 19, 0.5); }
+  50% { box-shadow: 0 0 0 0 rgba(253, 184, 19, 0.0), 0 8px 44px -6px rgba(253, 184, 19, 0.75); }
+}
+
+/* commit / orbit rail for the experience timeline */
+.orbit-rail {
+  position: relative;
+}
+.orbit-rail::before {
+  content: '';
+  position: absolute;
+  top: 18px;
+  bottom: -18px;
+  inset-inline-start: 6px;
+  width: 1px;
+  background: linear-gradient(to bottom, rgba(253, 184, 19, 0.5), rgba(157, 123, 255, 0.18));
+}
+.orbit-rail:last-child::before {
+  display: none;
+}
+
+/* underline sweep for nav/links */
+.link-sweep {
+  position: relative;
+}
+.link-sweep::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  height: 1px;
+  width: 100%;
+  background: var(--color-gold);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.25s ease;
+}
+.link-sweep:hover::after,
+.link-sweep:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* ============================================================
+   Résumé page — paper document (kept light for print/legibility)
+   ============================================================ */
+.resume-sheet {
+  background: #fdfcf8;
+  color: #1d2429;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.4),
+    0 24px 70px rgba(3, 4, 10, 0.6);
+}
+.resume-sheet ::selection {
+  background: #fdb81355;
+  color: #1d2429;
+}
+[dir='rtl'] .font-resume,
+.font-fa {
+  font-family: var(--font-vazirmatn), var(--font-body), sans-serif;
+}
+
+@media print {
+  body {
+    background: #ffffff !important;
+  }
+  .print-hidden {
+    display: none !important;
+  }
+  .resume-sheet {
+    box-shadow: none !important;
+    margin: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+    min-height: 0 !important;
+    border-radius: 0 !important;
+  }
+  @page {
+    size: A4;
+    margin: 0;
+  }
+}
+
+/* ============================================================
+   Legacy 3D explorer (/explore) — retuned to the cosmic palette
+   ============================================================ */
+.explore-root {
+  font-family: var(--font-mono), ui-monospace, monospace;
+}
+
 a {
-  color: #00ffff;
   text-decoration: none;
-  transition: color 0.2s;
 }
 
-a:hover {
-  color: #00ff41;
-  text-decoration: underline;
-}
-
-/* Canvas container */
 .canvas-container {
   position: fixed;
   inset: 0;
   z-index: 0;
 }
 
-/* Text glow effect */
 .text-glow {
   text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor;
 }
-
 .text-glow-sm {
   text-shadow: 0 0 5px currentColor, 0 0 10px currentColor;
 }
-
-/* Box glow effect */
 .box-glow {
   box-shadow: 0 0 10px currentColor, 0 0 20px currentColor;
 }
 
-/* Scanlines effect */
 .scanlines::after {
   content: '';
   position: absolute;
@@ -139,187 +346,69 @@ a:hover {
   opacity: 0.1;
 }
 
-/* Glitch animation keyframes */
 @keyframes glitch {
-  0% {
-    transform: translate(0);
-  }
-  20% {
-    transform: translate(-2px, 2px);
-  }
-  40% {
-    transform: translate(-2px, -2px);
-  }
-  60% {
-    transform: translate(2px, 2px);
-  }
-  80% {
-    transform: translate(2px, -2px);
-  }
-  100% {
-    transform: translate(0);
-  }
+  0% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+  100% { transform: translate(0); }
 }
-
 .animate-glitch {
   animation: glitch 0.3s linear infinite;
 }
 
-/* Flicker animation */
 @keyframes flicker {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.8;
-  }
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
 }
-
 .animate-flicker {
   animation: flicker 0.1s linear infinite;
 }
 
-/* CRT screen effect */
 .crt-effect {
   animation: textShadow 1.6s infinite;
 }
-
 @keyframes textShadow {
-  0% {
-    text-shadow: 0.4389924193300864px 0 1px rgba(0,30,255,0.5),
-      -0.4389924193300864px 0 1px rgba(255,0,80,0.3), 0 0 3px;
-  }
-  5% {
-    text-shadow: 2.7928974010788217px 0 1px rgba(0,30,255,0.5),
-      -2.7928974010788217px 0 1px rgba(255,0,80,0.3), 0 0 3px;
-  }
-  10% {
-    text-shadow: 0.02956275843481219px 0 1px rgba(0,30,255,0.5),
-      -0.02956275843481219px 0 1px rgba(255,0,80,0.3), 0 0 3px;
-  }
-  15% {
-    text-shadow: 0.40218538552878136px 0 1px rgba(0,30,255,0.5),
-      -0.40218538552878136px 0 1px rgba(255,0,80,0.3), 0 0 3px;
-  }
-  20% {
-    text-shadow: 3.4794037899852017px 0 1px rgba(0,30,255,0.5),
-      -3.4794037899852017px 0 1px rgba(255,0,80,0.3), 0 0 3px;
-  }
-  25% {
-    text-shadow: 1.6125630401149584px 0 1px rgba(0,30,255,0.5),
-      -1.6125630401149584px 0 1px rgba(255,0,80,0.3), 0 0 3px;
-  }
-  30% {
-    text-shadow: 0.7015590085143956px 0 1px rgba(0,30,255,0.5),
-      -0.7015590085143956px 0 1px rgba(255,0,80,0.3), 0 0 3px;
-  }
-  35% {
-    text-shadow: 3.896914047650351px 0 1px rgba(0,30,255,0.5),
-      -3.896914047650351px 0 1px rgba(255,0,80,0.3), 0 0 3px;
-  }
-  40% {
-    text-shadow: 3.870905614848819px 0 1px rgba(0,30,255,0.5),
-      -3.870905614848819px 0 1px rgba(255,0,80,0.3), 0 0 3px;
-  }
-  45% {
-    text-shadow: 2.231056963361899px 0 1px rgba(0,30,255,0.5),
-      -2.231056963361899px 0 1px rgba(255,0,80,0.3), 0 0 3px;
-  }
-  50% {
-    text-shadow: 0.08084290417898504px 0 1px rgba(0,30,255,0.5),
-      -0.08084290417898504px 0 1px rgba(255,0,80,0.3), 0 0 3px;
-  }
-  55% {
-    text-shadow: 2.3758461067427543px 0 1px rgba(0,30,255,0.5),
-      -2.3758461067427543px 0 1px rgba(255,0,80,0.3), 0 0 3px;
-  }
-  60% {
-    text-shadow: 2.202193051050636px 0 1px rgba(0,30,255,0.5),
-      -2.202193051050636px 0 1px rgba(255,0,80,0.3), 0 0 3px;
-  }
-  65% {
-    text-shadow: 2.8638780614874975px 0 1px rgba(0,30,255,0.5),
-      -2.8638780614874975px 0 1px rgba(255,0,80,0.3), 0 0 3px;
-  }
-  70% {
-    text-shadow: 0.48874025155497314px 0 1px rgba(0,30,255,0.5),
-      -0.48874025155497314px 0 1px rgba(255,0,80,0.3), 0 0 3px;
-  }
-  75% {
-    text-shadow: 1.8948491305757957px 0 1px rgba(0,30,255,0.5),
-      -1.8948491305757957px 0 1px rgba(255,0,80,0.3), 0 0 3px;
-  }
-  80% {
-    text-shadow: 0.0833037308038857px 0 1px rgba(0,30,255,0.5),
-      -0.0833037308038857px 0 1px rgba(255,0,80,0.3), 0 0 3px;
-  }
-  85% {
-    text-shadow: 0.09769827255241735px 0 1px rgba(0,30,255,0.5),
-      -0.09769827255241735px 0 1px rgba(255,0,80,0.3), 0 0 3px;
-  }
-  90% {
-    text-shadow: 3.443339761481782px 0 1px rgba(0,30,255,0.5),
-      -3.443339761481782px 0 1px rgba(255,0,80,0.3), 0 0 3px;
-  }
-  95% {
-    text-shadow: 2.1841838852799786px 0 1px rgba(0,30,255,0.5),
-      -2.1841838852799786px 0 1px rgba(255,0,80,0.3), 0 0 3px;
-  }
-  100% {
-    text-shadow: 2.6208764473832513px 0 1px rgba(0,30,255,0.5),
-      -2.6208764473832513px 0 1px rgba(255,0,80,0.3), 0 0 3px;
+  0% { text-shadow: 0.44px 0 1px rgba(72, 223, 227, 0.5), -0.44px 0 1px rgba(157, 123, 255, 0.3), 0 0 3px; }
+  25% { text-shadow: 1.61px 0 1px rgba(72, 223, 227, 0.5), -1.61px 0 1px rgba(157, 123, 255, 0.3), 0 0 3px; }
+  50% { text-shadow: 0.08px 0 1px rgba(72, 223, 227, 0.5), -0.08px 0 1px rgba(157, 123, 255, 0.3), 0 0 3px; }
+  75% { text-shadow: 1.89px 0 1px rgba(72, 223, 227, 0.5), -1.89px 0 1px rgba(157, 123, 255, 0.3), 0 0 3px; }
+  100% { text-shadow: 2.62px 0 1px rgba(72, 223, 227, 0.5), -2.62px 0 1px rgba(157, 123, 255, 0.3), 0 0 3px; }
+}
+
+/* Prose for markdown node details in the explorer — cosmic tuned */
+.prose-green,
+.prose-cosmos {
+  --tw-prose-body: #9aa5cc;
+  --tw-prose-headings: #ffc24b;
+  --tw-prose-lead: #9aa5cc;
+  --tw-prose-links: #48dfe3;
+  --tw-prose-bold: #9d7bff;
+  --tw-prose-counters: #fdb813;
+  --tw-prose-bullets: #fdb813;
+  --tw-prose-hr: #26305a;
+  --tw-prose-quotes: #9aa5cc;
+  --tw-prose-quote-borders: #fdb813;
+  --tw-prose-captions: #9aa5cc;
+  --tw-prose-code: #9d7bff;
+  --tw-prose-pre-code: #eaf0ff;
+  --tw-prose-pre-bg: #0e1428;
+  --tw-prose-th-borders: #26305a;
+  --tw-prose-td-borders: #182142;
+}
+
+/* respect reduced motion inside the explorer where feasible */
+@media (prefers-reduced-motion: reduce) {
+  .animate-glitch,
+  .animate-flicker,
+  .crt-effect {
+    animation: none !important;
   }
 }
 
-/* Prose overrides for markdown content */
-.prose-green {
-  --tw-prose-body: #d1d5db;
-  --tw-prose-headings: #00ff41;
-  --tw-prose-lead: #9ca3af;
-  --tw-prose-links: #00ffff;
-  --tw-prose-bold: #00ffff;
-  --tw-prose-counters: #00ff41;
-  --tw-prose-bullets: #00ff41;
-  --tw-prose-hr: #374151;
-  --tw-prose-quotes: #9ca3af;
-  --tw-prose-quote-borders: #00ff41;
-  --tw-prose-captions: #9ca3af;
-  --tw-prose-code: #ff00ff;
-  --tw-prose-pre-code: #d1d5db;
-  --tw-prose-pre-bg: #111827;
-  --tw-prose-th-borders: #374151;
-  --tw-prose-td-borders: #1f2937;
-}
-
-/* Welcome screen: stars drift radially outward from center */
-@keyframes starDrift {
-  0% {
-    transform: translate(-50%, -50%);
-    opacity: 0;
-  }
-  5% {
-    opacity: var(--star-opacity, 0.4);
-  }
-  90% {
-    opacity: var(--star-opacity, 0.4);
-  }
-  100% {
-    transform: translate(
-      calc(-50% + var(--star-dx, 0vh)),
-      calc(-50% + var(--star-dy, 0vh))
-    );
-    opacity: 0;
-  }
-}
-
-/* Welcome screen: slow orbital ring rotation */
-@keyframes orbitSpin {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
-}
-
-/* Hide elements with data attribute for accessibility while keeping them in DOM */
-[data-hidden="true"] {
+/* Hide elements visually while keeping them for a11y */
+[data-hidden='true'] {
   position: absolute;
   width: 1px;
   height: 1px;

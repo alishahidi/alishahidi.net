@@ -3,7 +3,7 @@ import { skillNodes, projectNodes, philosophyNodes, experienceNodes } from '@/da
 
 export const dynamic = 'force-static';
 
-const baseUrl = 'https://alishahidi.net';
+const baseUrl = 'https://alishahidi.github.io';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const allNodes = [
@@ -13,7 +13,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...experienceNodes,
   ];
 
-  // Main page
   const routes: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
@@ -21,14 +20,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 1,
     },
+    {
+      url: `${baseUrl}/resume`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/explore`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
   ];
 
-  // Node pages
   const nodeRoutes: MetadataRoute.Sitemap = allNodes.map((node) => ({
     url: `${baseUrl}/node/${node.id}`,
     lastModified: new Date(),
     changeFrequency: 'monthly' as const,
-    priority: 0.8,
+    priority: 0.5,
   }));
 
   return [...routes, ...nodeRoutes];

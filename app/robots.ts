@@ -8,8 +8,9 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
+        disallow: ['/resume/print/'],
       },
     ],
-    sitemap: 'https://alishahidi.net/sitemap.xml',
+    sitemap: 'https://alishahidi.github.io/sitemap.xml',
   };
 }

@@ -79,7 +79,7 @@ export function HUD() {
             <h1 className="text-[#FDB813] font-mono text-base sm:text-xl font-bold tracking-wider">
               Ali Shahidi
             </h1>
-            <p className="text-[#FDB813]/50 font-mono text-[10px] sm:text-xs">
+            <p className="text-[#FDB813]/75 font-mono text-[10px] sm:text-xs">
               Backend Developer
             </p>
           </div>
@@ -87,7 +87,7 @@ export function HUD() {
           {/* Progress */}
           <div className="bg-black/50 backdrop-blur-sm border border-[#FDB813]/30 rounded px-2 sm:px-3 py-1.5 sm:py-2">
             <div className="flex items-center gap-2 sm:gap-3 text-[10px] sm:text-xs font-mono">
-              <span className="text-[#FDB813]/70 hidden sm:inline">EXPLORED</span>
+              <span className="text-[#FDB813]/75 hidden sm:inline">EXPLORED</span>
               <div className="flex items-center gap-1.5 sm:gap-2">
                 <div className="w-16 sm:w-32 h-1 bg-[#FDB813]/20 rounded overflow-hidden">
                   <motion.div
@@ -113,7 +113,7 @@ export function HUD() {
           className="text-right pointer-events-auto shrink-0"
         >
           {/* Session time — hidden on very small screens */}
-          <div className="mb-2 sm:mb-4 text-[#FDB813]/50 font-mono text-[10px] sm:text-xs hidden xs:block">
+          <div className="mb-2 sm:mb-4 text-[#FDB813]/75 font-mono text-[10px] sm:text-xs hidden xs:block">
             SESSION: {formatTime(sessionTime)}
           </div>
 
@@ -152,7 +152,7 @@ export function HUD() {
             className="fixed inset-0 flex items-center justify-center pointer-events-none z-20"
           >
             <div className="bg-black/50 backdrop-blur-sm border border-[#FDB813]/15 rounded-lg px-4 py-2.5 text-center">
-              <p className="text-[#FDB813]/60 font-mono text-[10px] sm:text-xs">
+              <p className="text-[#FDB813]/75 font-mono text-[10px] sm:text-xs">
                 Click any planet, moon, or station
               </p>
               <p className="text-gray-600 font-mono text-[9px] sm:text-[10px] mt-0.5">
