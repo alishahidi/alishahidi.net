@@ -606,7 +606,7 @@ function Contact() {
               rel="noopener noreferrer"
               className="link-sweep text-stardust transition-colors hover:text-starlight"
             >
-              linkedin.com/in/alishahidi ↗
+              linkedin.com/in/alishahidi-7160b6200 ↗
             </a>
             <span className="text-deep-grey">tehran, iran</span>
           </div>

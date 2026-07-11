@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Ali Shahidi">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="40%" r="78%">
+      <stop offset="0%" stop-color="#0e1428"/>
+      <stop offset="100%" stop-color="#060814"/>
+    </radialGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FDB813" stop-opacity="0.6"/>
+      <stop offset="55%" stop-color="#FDB813" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="#FDB813" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="sun" cx="42%" cy="37%" r="66%">
+      <stop offset="0%" stop-color="#FFF6D6"/>
+      <stop offset="24%" stop-color="#FFE08A"/>
+      <stop offset="54%" stop-color="#FDB813"/>
+      <stop offset="82%" stop-color="#FF8C00"/>
+      <stop offset="100%" stop-color="#E8760B"/>
+    </radialGradient>
+  </defs>
+
+  <!-- void tile -->
+  <rect width="512" height="512" rx="116" fill="url(#bg)"/>
+
+  <!-- orbit ring -->
+  <ellipse cx="256" cy="262" rx="176" ry="66" fill="none"
+           stroke="#FDB813" stroke-opacity="0.4" stroke-width="7"
+           stroke-dasharray="5 22" stroke-linecap="round"
+           transform="rotate(-14 256 262)"/>
+
+  <!-- corona glow -->
+  <circle cx="256" cy="244" r="164" fill="url(#glow)"/>
+
+  <!-- the star -->
+  <circle cx="256" cy="244" r="104" fill="url(#sun)"/>
+
+  <!-- an orbiting body riding the ring -->
+  <circle cx="418" cy="300" r="13" fill="#48DFE3"/>
+</svg>

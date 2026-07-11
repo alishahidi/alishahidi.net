@@ -78,8 +78,8 @@ export const resume: Record<ResumeLang, ResumeContent> = {
       phoneDisplay: '+98 935 416 2611',
       github: 'github.com/alishahidi',
       githubUrl: 'https://github.com/alishahidi',
-      linkedin: 'linkedin.com/in/alishahidi',
-      linkedinUrl: 'https://linkedin.com/in/alishahidi',
+      linkedin: 'linkedin.com/in/alishahidi-7160b6200',
+      linkedinUrl: 'https://linkedin.com/in/alishahidi-7160b6200',
       location: 'Tehran, Iran',
     },
     labels: {
@@ -297,8 +297,8 @@ export const resume: Record<ResumeLang, ResumeContent> = {
       phoneDisplay: '+98 935 416 2611',
       github: 'github.com/alishahidi',
       githubUrl: 'https://github.com/alishahidi',
-      linkedin: 'linkedin.com/in/alishahidi',
-      linkedinUrl: 'https://linkedin.com/in/alishahidi',
+      linkedin: 'linkedin.com/in/alishahidi-7160b6200',
+      linkedinUrl: 'https://linkedin.com/in/alishahidi-7160b6200',
       location: 'تهران، ایران',
     },
     labels: {
