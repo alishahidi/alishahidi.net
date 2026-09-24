@@ -11,6 +11,26 @@ const LINKS = [
   { href: '#contact', label: 'contact' },
 ];
 
+/* Download icon — inline SVG (lucide-style), inherits currentColor */
+function IconDownload({ className = 'h-4 w-4' }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      className={className}
+    >
+      <path d="M12 3v12" />
+      <path d="m7 11 5 5 5-5" />
+      <path d="M5 21h14" />
+    </svg>
+  );
+}
+
 export function Nav() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -58,12 +78,29 @@ export function Nav() {
             ))}
           </div>
 
-          <Link
-            href="/resume"
-            className="rounded-full border border-gold/50 px-4 py-1.5 font-mono text-[13px] text-gold-bright transition-colors hover:bg-gold hover:text-void"
-          >
-            résumé
-          </Link>
+          {/* résumé PDF downloads — EN + FA, direct files */}
+          <div className="hidden items-center gap-2.5 md:flex">
+            <a
+              href="/resume/en-resume.pdf"
+              download="Ali-Shahidi-Resume-EN.pdf"
+              lang="en"
+              dir="ltr"
+              className="inline-flex items-center gap-1.5 rounded-full bg-gold px-4 py-1.5 font-mono text-[13px] font-semibold text-void transition hover:brightness-110"
+            >
+              <IconDownload className="h-[15px] w-[15px]" />
+              CV · EN
+            </a>
+            <a
+              href="/resume/fa-resume.pdf"
+              download="Ali-Shahidi-Resume-FA.pdf"
+              lang="fa"
+              dir="rtl"
+              className="inline-flex items-center gap-1.5 rounded-full border border-plasma/45 px-4 py-1.5 font-mono text-[13px] text-plasma transition-colors hover:bg-plasma hover:text-void"
+            >
+              <IconDownload className="h-[15px] w-[15px]" />
+              رزومه · فارسی
+            </a>
+          </div>
 
           {/* hamburger — mobile only */}
           <button
@@ -115,6 +152,36 @@ export function Nav() {
               </a>
             </li>
           ))}
+          {/* résumé PDF downloads — mobile sheet */}
+          <li className="mt-5">
+            <p className="mb-3 font-mono text-[12px] uppercase tracking-[0.2em] text-deep-grey">
+              download résumé · دانلود رزومه
+            </p>
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <a
+                href="/resume/en-resume.pdf"
+                download="Ali-Shahidi-Resume-EN.pdf"
+                lang="en"
+                dir="ltr"
+                onClick={() => setOpen(false)}
+                className="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-full bg-gold px-6 font-mono text-sm font-semibold text-void transition hover:brightness-110"
+              >
+                <IconDownload />
+                CV · English (PDF)
+              </a>
+              <a
+                href="/resume/fa-resume.pdf"
+                download="Ali-Shahidi-Resume-FA.pdf"
+                lang="fa"
+                dir="rtl"
+                onClick={() => setOpen(false)}
+                className="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-full border border-plasma/45 px-6 font-mono text-sm text-plasma transition-colors hover:bg-plasma hover:text-void"
+              >
+                <IconDownload />
+                رزومه · فارسی (PDF)
+              </a>
+            </div>
+          </li>
           <li className="mt-4">
             <Link
               href="/explore"

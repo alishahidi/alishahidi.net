@@ -2,8 +2,9 @@ import Link from 'next/link';
 import { HeroSun } from '@/components/home/HeroSun';
 import { Nav } from '@/components/home/Nav';
 import { CopyEmail } from '@/components/home/CopyEmail';
+import { ResumeDownloadButtons } from '@/components/home/ResumeDownloadButtons';
 import { Reveal } from '@/components/shared/Reveal';
-import { resume, resumePdfPaths } from '@/data/resume';
+import { resume } from '@/data/resume';
 
 const EMAIL = 'alishahidi1376@gmail.com';
 const GITHUB = 'https://github.com/alishahidi';
@@ -118,33 +119,25 @@ function Hero() {
           — scalable, reliable services that teams can lean on in production.
         </p>
 
-        {/* CTAs — the résumé is an equal-weight path for a recruiter in a hurry */}
+        {/* CTAs — direct PDF downloads (EN + FA) for a recruiter in a hurry */}
         <div
           className="reveal mt-10 flex flex-col items-center gap-4"
           style={{ ['--reveal-delay' as string]: '0.24s' }}
         >
-          <div className="flex flex-col items-center gap-3.5 sm:flex-row">
-            <Link
-              href="/resume"
-              className="cta-glow group inline-flex items-center gap-2.5 rounded-full bg-gold px-8 py-3.5 font-display text-lg font-semibold text-void transition-transform hover:scale-[1.03]"
-            >
-              View résumé
-              <span className="font-mono text-sm font-normal text-void/70">the 20-second version</span>
-            </Link>
-            <Link
-              href="/explore"
-              className="link-sweep group inline-flex items-center gap-2.5 rounded-full border border-plasma/40 px-8 py-3.5 font-display text-lg font-semibold text-starlight transition-colors hover:border-plasma hover:text-plasma"
-            >
-              <span
-                className="inline-block h-2.5 w-2.5 rounded-full bg-plasma shadow-[0_0_10px_2px_rgba(72,223,227,0.5)]"
-                aria-hidden="true"
-              />
-              Explore the universe
-              <span className="transition-transform group-hover:translate-x-1" aria-hidden="true">
-                →
-              </span>
-            </Link>
-          </div>
+          <ResumeDownloadButtons size="lg" />
+          <Link
+            href="/explore"
+            className="link-sweep group inline-flex items-center gap-2.5 rounded-full border border-plasma/40 px-8 py-3.5 font-display text-lg font-semibold text-starlight transition-colors hover:border-plasma hover:text-plasma"
+          >
+            <span
+              className="inline-block h-2.5 w-2.5 rounded-full bg-plasma shadow-[0_0_10px_2px_rgba(72,223,227,0.5)]"
+              aria-hidden="true"
+            />
+            Explore the universe
+            <span className="transition-transform group-hover:translate-x-1" aria-hidden="true">
+              →
+            </span>
+          </Link>
           <div className="mt-1 flex flex-wrap items-center justify-center gap-4">
             <a
               href={GITHUB}
@@ -542,32 +535,11 @@ function ResumeBand() {
                 The full résumé
               </h2>
               <p className="mt-3 leading-relaxed text-stardust">
-                Available in English and Persian — read it in the browser or take
-                the PDF.
+                Up-to-date PDF, in English and Persian — grab the one you need,
+                right here.
               </p>
             </div>
-            <div className="flex flex-wrap gap-3.5">
-              <Link
-                href="/resume"
-                className="rounded-full bg-gold px-6 py-3 font-display font-semibold text-void transition hover:brightness-110"
-              >
-                Open résumé
-              </Link>
-              <a
-                href={resumePdfPaths.en}
-                download
-                className="rounded-full border border-white/12 px-5 py-3 font-mono text-sm text-starlight transition-colors hover:border-gold hover:text-gold-bright"
-              >
-                PDF · EN
-              </a>
-              <a
-                href={resumePdfPaths.fa}
-                download
-                className="rounded-full border border-white/12 px-5 py-3 font-mono text-sm text-starlight transition-colors hover:border-gold hover:text-gold-bright"
-              >
-                PDF · فارسی
-              </a>
-            </div>
+            <ResumeDownloadButtons />
           </div>
         </Reveal>
       </div>

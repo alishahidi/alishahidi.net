@@ -505,7 +505,9 @@ export const resume: Record<ResumeLang, ResumeContent> = {
   },
 };
 
+/* The current, hand-authored résumé PDFs (public/resume/). These are the
+   canonical files linked from every download button across the site. */
 export const resumePdfPaths: Record<ResumeLang, string> = {
-  en: '/resume/Ali-Shahidi-Resume-EN.pdf',
-  fa: '/resume/Ali-Shahidi-Resume-FA.pdf',
+  en: '/resume/en-resume.pdf',
+  fa: '/resume/fa-resume.pdf',
 };

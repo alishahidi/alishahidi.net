@@ -6,6 +6,26 @@ import { useSearchParams } from 'next/navigation';
 import { ResumeDocument } from '@/components/resume/ResumeDocument';
 import { resumePdfPaths, type ResumeLang } from '@/data/resume';
 
+/* Download icon — inline SVG (lucide-style), inherits currentColor */
+function IconDownload({ className = 'h-4 w-4' }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      className={className}
+    >
+      <path d="M12 3v12" />
+      <path d="m7 11 5 5 5-5" />
+      <path d="M5 21h14" />
+    </svg>
+  );
+}
+
 function ResumeContent() {
   const searchParams = useSearchParams();
   const [lang, setLang] = useState<ResumeLang>(() =>
@@ -62,11 +82,24 @@ function ResumeContent() {
             </div>
 
             <a
-              href={resumePdfPaths[lang]}
-              download
-              className="rounded-full bg-gold px-4 py-1.5 font-mono text-[13px] font-semibold text-void transition hover:brightness-110"
+              href={resumePdfPaths.en}
+              download="Ali-Shahidi-Resume-EN.pdf"
+              lang="en"
+              dir="ltr"
+              className="inline-flex items-center gap-2 rounded-full bg-gold px-4 py-1.5 font-mono text-[13px] font-semibold text-void transition hover:brightness-110"
             >
-              {lang === 'fa' ? 'دانلود PDF' : 'Download PDF'}
+              <IconDownload className="h-[15px] w-[15px]" />
+              PDF · EN
+            </a>
+            <a
+              href={resumePdfPaths.fa}
+              download="Ali-Shahidi-Resume-FA.pdf"
+              lang="fa"
+              dir="rtl"
+              className="inline-flex items-center gap-2 rounded-full border border-plasma/45 px-4 py-1.5 font-mono text-[13px] text-plasma transition-colors hover:bg-plasma hover:text-void"
+            >
+              <IconDownload className="h-[15px] w-[15px]" />
+              PDF · فارسی
             </a>
             <button
               onClick={() => window.print()}
@@ -83,8 +116,8 @@ function ResumeContent() {
         <ResumeDocument lang={lang} />
         <p className="print-hidden mx-auto mt-6 max-w-[210mm] text-center font-mono text-[12px] text-deep-grey">
           {lang === 'fa'
-            ? 'نسخه HTML این رزومه — برای دریافت فایل PDF از دکمه دانلود استفاده کنید.'
-            : 'HTML version of this résumé — use the download button for the PDF file.'}
+            ? 'نسخه HTML این رزومه — فایل‌های PDF به‌روز (انگلیسی و فارسی) از دکمه‌های بالا قابل دانلودند.'
+            : 'HTML version of this résumé — the up-to-date PDF files (English & Persian) are available via the download buttons above.'}
         </p>
       </main>
     </div>
