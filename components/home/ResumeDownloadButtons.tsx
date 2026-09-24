@@ -45,8 +45,8 @@ export function ResumeDownloadButtons({
       >
         <IconDownload className={`${icon} transition-transform group-hover:translate-y-0.5`} />
         <span>
-          Download CV
-          <span className="ms-2 font-mono text-xs font-normal opacity-70">English · PDF</span>
+          Download
+          <span className="ms-2 font-mono text-xs font-normal opacity-70">EN · PDF</span>
         </span>
       </a>
       <a
@@ -57,10 +57,10 @@ export function ResumeDownloadButtons({
         className={`group inline-flex items-center justify-center gap-2.5 rounded-full border border-plasma/40 font-display font-semibold text-starlight transition-colors hover:border-plasma hover:text-plasma ${pad}`}
       >
         <IconDownload className={`${icon} transition-transform group-hover:translate-y-0.5`} />
-        <span dir="rtl">
-          دانلود رزومه
+        <span>
+          Download
           <span className="ms-2 block font-mono text-xs font-normal text-deep-grey sm:inline">
-            فارسی · PDF
+            FA · PDF
           </span>
         </span>
       </a>

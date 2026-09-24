@@ -113,17 +113,32 @@ export function ResumeDocument({ lang }: { lang: ResumeLang }) {
                   </div>
                   <p className="text-[12px] font-semibold mt-0.5" style={{ color: ACCENT }}>
                     {job.company}
+                    {job.location && (
+                      <span className="font-normal" style={{ color: MUTED }}>
+                        {' · '}
+                        {job.location}
+                      </span>
+                    )}
                   </p>
-                  <ul className="mt-2 space-y-1 ps-4 list-disc marker:text-[10px]">
-                    {job.bullets.map((b, i) => (
-                      <li key={i} className="text-[13px] sm:text-[12px] leading-[1.65]" style={{ color: INK }}>
-                        {b}
-                      </li>
-                    ))}
-                  </ul>
-                  <p className={`mt-1.5 text-[11px] ${fa ? '' : 'font-mono'}`} style={{ color: MUTED }}>
-                    {r.labels.skillsUsed}: {job.skills.join(' · ')}
-                  </p>
+                  {job.intro && (
+                    <p className="mt-1.5 text-[13px] sm:text-[12px] leading-[1.65]" style={{ color: INK }}>
+                      {job.intro}
+                    </p>
+                  )}
+                  {job.bullets.length > 0 && (
+                    <ul className="mt-2 space-y-1 ps-4 list-disc marker:text-[10px]">
+                      {job.bullets.map((b, i) => (
+                        <li key={i} className="text-[13px] sm:text-[12px] leading-[1.65]" style={{ color: INK }}>
+                          {b}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                  {job.skills.length > 0 && (
+                    <p className={`mt-1.5 text-[11px] ${fa ? '' : 'font-mono'}`} style={{ color: MUTED }}>
+                      {r.labels.skillsUsed}: {job.skills.join(' · ')}
+                    </p>
+                  )}
                 </article>
               ))}
             </div>
