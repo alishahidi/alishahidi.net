@@ -12,6 +12,11 @@ Live at [alishahidi.net](https://alishahidi.net).
 | `/resume` | Résumé in HTML, switchable between **English** and **فارسی** (RTL), with PDF download and print support |
 | `/explore` | The interactive solar-system portfolio (Three.js) — terminal, achievements, easter eggs |
 
+Résumé downloads (EN + FA PDF buttons in the nav, hero, and résumé band on `/`)
+point to the current hand-authored files in `public/resume/`:
+`en-resume.pdf` and `fa-resume.pdf` — paths centralized in
+`data/resume.ts` (`resumePdfPaths`).
+
 ## Stack
 
 Next.js (static export) · React · Tailwind CSS v4 · Three.js / react-three-fiber (explorer) · Zustand
@@ -28,17 +33,19 @@ npm run build   # static export to out/
 
 ## Regenerating the résumé PDFs
 
-The downloadable PDFs live in `public/resume/` and are generated from the
-print routes with headless Chromium:
+The downloadable PDFs live in `public/resume/`. The files currently shipped
+there (`en-resume.pdf`, `fa-resume.pdf`) are hand-authored and are the
+canonical downloads linked across the site. Additional PDFs can be generated
+from the print routes with headless Chromium:
 
 ```bash
 npm run build
 python3 -m http.server 8931 -d out &
 chromium --headless=new --no-pdf-header-footer \
-  --print-to-pdf=public/resume/Ali-Shahidi-Resume-EN.pdf \
+  --print-to-pdf=public/resume/en-resume.pdf \
   http://localhost:8931/resume/print/en/
 chromium --headless=new --no-pdf-header-footer \
-  --print-to-pdf=public/resume/Ali-Shahidi-Resume-FA.pdf \
+  --print-to-pdf=public/resume/fa-resume.pdf \
   http://localhost:8931/resume/print/fa/
 npm run build   # rebuild so out/ includes the fresh PDFs
 ```
