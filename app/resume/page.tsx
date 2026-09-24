@@ -89,7 +89,7 @@ function ResumeContent() {
               className="inline-flex items-center gap-2 rounded-full bg-gold px-4 py-1.5 font-mono text-[13px] font-semibold text-void transition hover:brightness-110"
             >
               <IconDownload className="h-[15px] w-[15px]" />
-              PDF · EN
+              Download · EN
             </a>
             <a
               href={resumePdfPaths.fa}
@@ -99,7 +99,7 @@ function ResumeContent() {
               className="inline-flex items-center gap-2 rounded-full border border-plasma/45 px-4 py-1.5 font-mono text-[13px] text-plasma transition-colors hover:bg-plasma hover:text-void"
             >
               <IconDownload className="h-[15px] w-[15px]" />
-              PDF · فارسی
+              Download · FA
             </a>
             <button
               onClick={() => window.print()}
@@ -116,7 +116,7 @@ function ResumeContent() {
         <ResumeDocument lang={lang} />
         <p className="print-hidden mx-auto mt-6 max-w-[210mm] text-center font-mono text-[12px] text-deep-grey">
           {lang === 'fa'
-            ? 'نسخه HTML این رزومه — فایل‌های PDF به‌روز (انگلیسی و فارسی) از دکمه‌های بالا قابل دانلودند.'
+            ? 'This is the HTML version — the up-to-date PDF files (EN & FA) are available via the download buttons above.'
             : 'HTML version of this résumé — the up-to-date PDF files (English & Persian) are available via the download buttons above.'}
         </p>
       </main>

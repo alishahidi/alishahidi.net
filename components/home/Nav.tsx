@@ -88,7 +88,7 @@ export function Nav() {
               className="inline-flex items-center gap-1.5 rounded-full bg-gold px-4 py-1.5 font-mono text-[13px] font-semibold text-void transition hover:brightness-110"
             >
               <IconDownload className="h-[15px] w-[15px]" />
-              CV · EN
+              Download · EN
             </a>
             <a
               href="/resume/fa-resume.pdf"
@@ -98,7 +98,7 @@ export function Nav() {
               className="inline-flex items-center gap-1.5 rounded-full border border-plasma/45 px-4 py-1.5 font-mono text-[13px] text-plasma transition-colors hover:bg-plasma hover:text-void"
             >
               <IconDownload className="h-[15px] w-[15px]" />
-              رزومه · فارسی
+              Download · FA
             </a>
           </div>
 
@@ -155,7 +155,7 @@ export function Nav() {
           {/* résumé PDF downloads — mobile sheet */}
           <li className="mt-5">
             <p className="mb-3 font-mono text-[12px] uppercase tracking-[0.2em] text-deep-grey">
-              download résumé · دانلود رزومه
+              download résumé
             </p>
             <div className="flex flex-col gap-3 sm:flex-row">
               <a
@@ -167,7 +167,7 @@ export function Nav() {
                 className="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-full bg-gold px-6 font-mono text-sm font-semibold text-void transition hover:brightness-110"
               >
                 <IconDownload />
-                CV · English (PDF)
+                Download · EN (PDF)
               </a>
               <a
                 href="/resume/fa-resume.pdf"
@@ -178,7 +178,7 @@ export function Nav() {
                 className="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-full border border-plasma/45 px-6 font-mono text-sm text-plasma transition-colors hover:bg-plasma hover:text-void"
               >
                 <IconDownload />
-                رزومه · فارسی (PDF)
+                Download · FA (PDF)
               </a>
             </div>
           </li>

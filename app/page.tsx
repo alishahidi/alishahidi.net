@@ -234,7 +234,7 @@ function About() {
               </p>
               <div className="flex items-center gap-3 pt-2 font-mono text-sm text-deep-grey">
                 <span className="status-dot" aria-hidden="true" />
-                currently building enterprise Java at Navashgaran Asr Parseh
+                currently building enterprise Java at Navashgaran-e Asr-e Parseh
               </div>
             </div>
           </Reveal>
@@ -249,38 +249,38 @@ function About() {
 const TIMELINE = [
   {
     marker: 'now',
-    role: 'Java Software Developer',
-    company: 'Navashgaran Asr Parseh',
-    period: 'Feb 2024 — present',
-    desc: 'Enterprise-scale services in Java & Spring Boot: high-traffic REST APIs, layered service-oriented architecture, and driving data migration from legacy systems. Code review, technical decisions, and mentoring — tech lead on parts of the project.',
-    tags: ['Java', 'Spring Boot', 'Oracle', 'Data Migration'],
+    role: 'Backend Developer',
+    company: 'Navashgaran-e Asr-e Parseh',
+    period: '02/2024 — present',
+    desc: 'Enterprise-scale services in Java & Spring Boot: high-traffic REST APIs, layered service-oriented architecture, and leading data migration from legacy systems. Code review, technical decisions, and mentoring — tech lead on select parts of the project.',
+    tags: ['Java', 'Spring Boot', 'Oracle', 'Data Migration', 'Docker'],
     accent: 'gold',
+  },
+  {
+    marker: 'now',
+    role: 'Freelance Backend Developer (Concurrent)',
+    company: 'Remote',
+    period: '04/2024 — present',
+    desc: 'Independent backend engineering alongside full-time employment — production-grade systems for private clients under NDA, including the enterprise framework, real-time GPS fleet tracking, and several microservices platforms below.',
+    tags: ['Spring Boot', 'Microservices', 'System Design', 'LLM'],
+    accent: 'aurora',
   },
   {
     marker: '',
     role: 'Backend Developer · Intern',
     company: 'Neshan Maps',
-    period: 'Aug — Sep 2023',
-    desc: 'Backend services for live product features at one of Iran’s leading map platforms. Hands-on microservices, Redis caching, and Neshan’s specialized backend bootcamp.',
-    tags: ['Microservices', 'Redis', 'REST API'],
+    period: '07/2023 — 09/2023',
+    desc: 'Backend services for real product features at one of Iran’s leading map platforms. Hands-on microservices, Redis caching, and Neshan’s specialized backend bootcamp.',
+    tags: ['Java 17', 'Spring Boot', 'PostgreSQL', 'Redis', 'RabbitMQ'],
     accent: 'plasma',
   },
   {
     marker: '',
     role: 'Software Developer · Frontend Focus',
-    company: 'LaunchingMax',
-    period: 'Feb — Jul 2023',
-    desc: 'Organizational web apps with React.js — building UI and integrating it with backend APIs. The role that taught me what API consumers actually need.',
+    company: 'Launching Max',
+    period: '02/2023 — 07/2023',
+    desc: 'Enterprise web apps with React.js — building UI and integrating it with backend APIs. The role that taught me what API consumers actually need.',
     tags: ['React.js', 'JavaScript', 'UI/UX'],
-    accent: 'aurora',
-  },
-  {
-    marker: '',
-    role: 'PHP Developer',
-    company: 'Freelance',
-    period: 'Jul 2019 — Feb 2023',
-    desc: 'Web applications and backend systems in PHP & Laravel, owned end to end from requirements to delivery. Built Apantos — a custom PHP framework focused on security and modularity.',
-    tags: ['PHP', 'Laravel', 'MySQL', 'Apantos'],
     accent: 'nebula',
   },
 ];
@@ -483,10 +483,12 @@ function Work() {
 /* ---------------------------------------------------------- stack */
 
 const STACK: Array<[string, string, string[]]> = [
-  ['languages & frameworks', '#FDB813', ['Java', 'Spring Boot', 'Spring Cloud', 'Hibernate / JPA', 'PHP · Laravel', 'TypeScript · React']],
-  ['data & messaging', '#48DFE3', ['PostgreSQL · PostGIS', 'Oracle · PL/SQL', 'Redis', 'Kafka · RabbitMQ', 'Elasticsearch · ClickHouse']],
-  ['architecture', '#9D7BFF', ['Microservices', 'Event-driven', 'API gateway', 'Domain-driven design', 'gRPC · REST']],
-  ['infrastructure', '#57D9A3', ['Linux', 'Docker · Kubernetes', 'Proxmox · ESXi', 'MikroTik', 'CI/CD · Git']],
+  ['languages', '#FDB813', ['Java', 'Python', 'TypeScript / JavaScript', 'SQL', 'PHP']],
+  ['backend & frameworks', '#48DFE3', ['Spring Boot', 'Spring Cloud', 'Hibernate / JPA', 'Laravel', 'Netty', 'REST · gRPC · WebSocket']],
+  ['architecture', '#9D7BFF', ['Microservices', 'Event-driven (Outbox / Saga)', 'API Gateway', 'Domain-driven design', 'Database-per-Service', 'System Design']],
+  ['data & messaging', '#57D9A3', ['PostgreSQL · PostGIS', 'Oracle · PL/SQL', 'Redis', 'Kafka · RabbitMQ · MQTT', 'ScyllaDB', 'ClickHouse · Elasticsearch']],
+  ['infrastructure', '#FDB813', ['Linux', 'Docker · Kubernetes', 'CI/CD (Jenkins)', 'MikroTik', 'Proxmox · ESXi', 'Observability']],
+  ['practices & tools', '#48DFE3', ['JUnit · Testcontainers', 'Code Review', 'Prompt Engineering', 'LLM-Assisted Development']],
 ];
 
 function Stack() {
@@ -496,9 +498,9 @@ function Stack() {
         <Reveal>
           <SectionHeading id="stack" index="04" eyebrow="tool constellation" title="Tools I trust" />
         </Reveal>
-        <div className="grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
           {STACK.map(([group, accent, items], gi) => (
-            <Reveal key={group} delay={gi * 0.05}>
+            <Reveal key={group} delay={(gi % 3) * 0.05}>
               <h3 className="font-mono text-[13px]" style={{ color: accent }}>
                 ~/{group}
               </h3>
